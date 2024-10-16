@@ -2,9 +2,16 @@ import { useState } from 'react'
 import { ExerciseStyled } from './styles'
 import edit from '../../assets/edit.png'
 import info from '../../assets/info.png'
+import { PieChart } from '../pie_chart'
 
 export const Exercise = ({ ...props }: ExerciseProps) => {
   const [open, setOpen] = useState(false)
+  const main = Array(props.workoutExercise.exercise.mainmuscles.length).fill(1)
+
+  const seconday = props.workoutExercise.exercise.secondarymuscles
+    ? Array(props.workoutExercise.exercise.secondarymuscles.length).fill(0.5)
+    : []
+  const pie_values = main.concat(seconday)
   return (
     <ExerciseStyled>
       <button
@@ -73,13 +80,30 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
           </button>
         </div>
         <div
-          className="collapse container text-justify border-top border-secondary mt-1 pt-1"
+          className="collapse border-top border-secondary mt-1 pt-1"
           id={`exerciseCollapse${props.exerciseKey}info`}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem
-          dicta, quisquam consectetur omnis sint suscipit, nisi veritatis,
-          ducimus vel voluptas repellendus reprehenderit quae laudantium
-          necessitatibus reiciendis libero? A, eaque dignissimos!
+          <div className="d-flex align-items-center justify-content-center flex-column">
+            <PieChart $values={pie_values} />
+            <div>
+              <p>
+                <b>main: </b>
+                {props.workoutExercise.exercise.mainmuscles.map((m, i) => {
+                  return `${m}`
+                })}
+              </p>
+              <p>
+                <b>sec: </b>
+                {props.workoutExercise.exercise.secondarymuscles
+                  ? props.workoutExercise.exercise.secondarymuscles.map(
+                      (m, i) => {
+                        return `${m} `
+                      }
+                    )
+                  : ''}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </ExerciseStyled>
