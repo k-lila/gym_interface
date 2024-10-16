@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
 export const WorkoutChooserStyled = styled.div`
-
+  width: 100%;
+  height: fit-content;
 
   .__btn-container {
     display: flex;

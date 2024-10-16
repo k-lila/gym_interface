@@ -13,8 +13,14 @@ export const WorkoutHandler = () => {
   const active_workout = user_workouts.filter((w) => w.name === id)[0]
   const [dailyWorkout, setDailyWorkout] = useState(active_workout.workouts[0])
   const navigate = useNavigate()
+  let senha
+  if (dailyWorkout.name == 'A') {
+    senha = 1
+  } else {
+    senha = 2
+  }
   return (
-    <WorkoutHandlerStyled>
+    <WorkoutHandlerStyled key={senha}>
       <header className="bg-dark">
         <div className="dropdown" data-bs-theme="dark">
           <button
