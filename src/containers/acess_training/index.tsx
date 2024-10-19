@@ -50,7 +50,7 @@ export const Acess_Training = () => {
       <div
         className="modal fade"
         id="chooseWorkout"
-        aria-labelledby="exampleModalLabel"
+        aria-labelledby="chooseWorkoutLabel"
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered">

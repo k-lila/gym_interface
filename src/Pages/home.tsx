@@ -1,4 +1,4 @@
-import { Acess_Training } from '../components/acess_training'
+import { Acess_Training } from '../containers/acess_training'
 
 export const Home = () => {
   return (
