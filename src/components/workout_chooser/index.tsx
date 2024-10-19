@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { setDefaultWorkout } from '../../store/reducers/preferences'
-import { PieChart } from '../pie_chart'
 
 export const WorkoutChooser = () => {
   const navigate = useNavigate()
@@ -17,14 +16,14 @@ export const WorkoutChooser = () => {
   const defaultworkout = useSelector(
     (state: RootReducer) => state.preferences.defaultworkout
   )
+
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setDefaultWorkout(event.target.value))
   }
+
   const handleNavigate = () => {
     navigate(`/workout/${defaultworkout}`)
   }
-
-  const pie_values = [1, 1, 1, 1, 1, 1, 1, 1]
 
   return (
     <WorkoutChooserStyled>
@@ -45,7 +44,6 @@ export const WorkoutChooser = () => {
           })}
         </select>
       </form>
-      <PieChart $values={pie_values} />
       <div className="__btn-container">
         <button onClick={handleNavigate}>
           <img src={fire} className="--workout" />
