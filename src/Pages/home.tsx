@@ -3,12 +3,8 @@ import { Acess_Training } from '../components/acess_training'
 export const Home = () => {
   return (
     <div
-      style={{
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}
+      style={{ height: '100svh' }}
+      className="container-fluid d-flex justify-content-center align-items-center bg-secondary"
     >
       <Acess_Training />
     </div>

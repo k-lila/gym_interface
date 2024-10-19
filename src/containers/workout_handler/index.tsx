@@ -1,20 +1,28 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useState } from 'react'
 import { RootReducer } from '../../store'
 import { WorkoutHandlerStyled } from './styles'
 import { Exercise } from '../../components/exercise'
+import { setDailyWorkout } from '../../store/reducers/preferences'
 
 export const WorkoutHandler = () => {
   const { id } = useParams()
+  const dispatch = useDispatch()
   const user_workouts = useSelector(
     (state: RootReducer) => state.workouts.user_workouts
   )
+  const dailyWorkout = useSelector(
+    (state: RootReducer) => state.preferences.dailyworkout
+  )
   const active_workout = user_workouts.filter((w) => w.name === id)[0]
-  const [dailyWorkout, setDailyWorkout] = useState(active_workout.workouts[0])
+  const daily_active = active_workout.workouts.filter(
+    (f) => f.name == dailyWorkout
+  )[0]
+
   const navigate = useNavigate()
   let senha
-  if (dailyWorkout.name == 'A') {
+  if (daily_active.name == 'A') {
     senha = 1
   } else {
     senha = 2
@@ -30,7 +38,7 @@ export const WorkoutHandler = () => {
             aria-expanded="false"
             data-bs-auto-close="outside"
           >
-            {dailyWorkout.name}
+            {daily_active.name}
           </button>
           <div className="dropdown-menu p-2">
             <div
@@ -45,7 +53,7 @@ export const WorkoutHandler = () => {
                     key={i}
                     type="button"
                     className="btn btn-light my-2"
-                    onClick={() => setDailyWorkout(w)}
+                    onClick={() => dispatch(setDailyWorkout(w.name))}
                   >
                     {w.name}
                   </button>
@@ -54,13 +62,13 @@ export const WorkoutHandler = () => {
             </div>
           </div>
         </div>
-        <button className="btn btn-light" onClick={() => navigate('/workout')}>
+        <button className="btn btn-light" onClick={() => navigate('/')}>
           voltar
         </button>
       </header>
       <div className="p-2">
         {active_workout.workouts
-          .filter((w) => w.name === dailyWorkout.name)[0]
+          .filter((w) => w.name === daily_active.name)[0]
           .exercises.map((w, i) => {
             return <Exercise key={i} exerciseKey={i} workoutExercise={w} />
           })}

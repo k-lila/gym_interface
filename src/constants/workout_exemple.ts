@@ -14,6 +14,7 @@ export const daily_A: DailyWorkout = {
   exercises: [
     {
       exercise: supino,
+      serietype: 'custom',
       series: [
         {
           repetitions: [12],
@@ -42,6 +43,7 @@ export const daily_A: DailyWorkout = {
     },
     {
       exercise: supino_inclinado,
+      serietype: 'normal',
       series: [
         {
           repetitions: [8, 10],
@@ -70,6 +72,7 @@ export const daily_A: DailyWorkout = {
     },
     {
       exercise: crucifixo_reto,
+      serietype: 'normal',
       series: [
         {
           repetitions: [8, 10],
@@ -98,6 +101,7 @@ export const daily_A: DailyWorkout = {
     },
     {
       exercise: desenvolvimento,
+      serietype: 'normal',
       series: [
         {
           repetitions: [10],
@@ -126,6 +130,7 @@ export const daily_A: DailyWorkout = {
     },
     {
       exercise: triceps_coice,
+      serietype: 'normal',
       series: [
         {
           repetitions: [10],
@@ -149,6 +154,7 @@ export const daily_A: DailyWorkout = {
     },
     {
       exercise: crossover_baixa,
+      serietype: 'normal',
       series: [
         {
           repetitions: [10],
@@ -177,6 +183,7 @@ export const daily_A: DailyWorkout = {
     },
     {
       exercise: elevacao_lateral,
+      serietype: 'normal',
       series: [
         {
           repetitions: [8, 10],
@@ -204,6 +211,7 @@ export const daily_A: DailyWorkout = {
     },
     {
       exercise: barra_paralela,
+      serietype: 'normal',
       series: [
         { repetitions: [7, 14] },
         { repetitions: [7, 14] },
@@ -221,6 +229,7 @@ export const daily_B: DailyWorkout = {
   exercises: [
     {
       exercise: supino_inclinado,
+      serietype: 'normal',
       series: [
         {
           repetitions: [8, 10],
@@ -249,6 +258,7 @@ export const daily_B: DailyWorkout = {
     },
     {
       exercise: crucifixo_reto,
+      serietype: 'normal',
       series: [
         {
           repetitions: [8, 10],
@@ -277,6 +287,7 @@ export const daily_B: DailyWorkout = {
     },
     {
       exercise: desenvolvimento,
+      serietype: 'normal',
       series: [
         {
           repetitions: [10],
@@ -305,6 +316,7 @@ export const daily_B: DailyWorkout = {
     },
     {
       exercise: triceps_coice,
+      serietype: 'normal',
       series: [
         {
           repetitions: [10],
@@ -328,6 +340,7 @@ export const daily_B: DailyWorkout = {
     },
     {
       exercise: crossover_baixa,
+      serietype: 'normal',
       series: [
         {
           repetitions: [10],
@@ -356,6 +369,7 @@ export const daily_B: DailyWorkout = {
     },
     {
       exercise: elevacao_lateral,
+      serietype: 'normal',
       series: [
         {
           repetitions: [8, 10],
@@ -383,6 +397,7 @@ export const daily_B: DailyWorkout = {
     },
     {
       exercise: barra_paralela,
+      serietype: 'normal',
       series: [
         { repetitions: [7, 14] },
         { repetitions: [7, 14] },

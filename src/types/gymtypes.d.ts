@@ -1,7 +1,11 @@
+declare type MuscleGroup = {
+  name: string
+  musclegroup: Array<string>
+}
+
 declare type Exercise = {
   name: string
-  mainmuscles: Array<string>
-  secondarymuscles?: Array<string>
+  musclegroup: Array<MuscleGroup>
 }
 
 declare type ExerciseSerie = {
@@ -12,6 +16,7 @@ declare type ExerciseSerie = {
 
 declare type WorkoutExercise = {
   exercise: Exercise
+  serietype: 'normal' | 'custom'
   series: Array<ExerciseSerie>
   grip?: 'supinada' | 'neutra' | 'pronada'
   bodyweight?: boolean
