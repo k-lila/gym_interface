@@ -1,5 +1,5 @@
 declare type ExerciseProps = {
-  exerciseKey: number
+  exerciseNum: number
   workoutExercise: WorkoutExercise
 }
 

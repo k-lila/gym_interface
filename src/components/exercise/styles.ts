@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-export const ExerciseStyled = styled.div`
-  margin: 5% 0;
-
+export const ExerciseStyled = styled.div.attrs({
+  className: 'my-4'
+})`
   .edit-btn {
     height: 1em;
     margin: auto 0;

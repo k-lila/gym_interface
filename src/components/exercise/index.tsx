@@ -1,30 +1,30 @@
-import { useState } from 'react'
 import { ExerciseStyled } from './styles'
 import edit from '../../assets/edit.png'
 import info from '../../assets/info.png'
+import { useSelector } from 'react-redux'
+import { RootReducer } from '../../store'
 
 export const Exercise = ({ ...props }: ExerciseProps) => {
-  const [open, setOpen] = useState(false)
+  const ontraining = useSelector((state: RootReducer) => state.logs.ontraining)
+
   return (
     <ExerciseStyled>
       <button
-        className="btn btn-outline-dark w-100 d-flex justify-content-between align-items-center"
+        className="btn btn-outline-dark w-100 d-flex justify-content-between align-items-center border-2"
         type="button"
         data-bs-toggle="collapse"
-        data-bs-target={`#exerciseCollapse${props.exerciseKey}`}
+        data-bs-target={`#exerciseCollapse${props.exerciseNum}`}
         aria-expanded="false"
-        aria-controls={`exerciseCollapse${props.exerciseKey}`}
-        onClick={() => setOpen(!open)}
+        aria-controls={`exerciseCollapse${props.exerciseNum}`}
       >
         <div>
-          <b>{props.exerciseKey + 1}</b>
+          <b>{props.exerciseNum + 1}</b>
           <span className="ms-2">{props.workoutExercise.exercise.name}</span>
         </div>
-        <span>{open ? '-' : '+'}</span>
       </button>
       <div
-        className="collapse container border border-dark rounded pb-1"
-        id={`exerciseCollapse${props.exerciseKey}`}
+        className="collapse container border border-dark border-2 rounded pb-1"
+        id={`exerciseCollapse${props.exerciseNum}`}
       >
         <div className="row mt-1 border-bottom border-secondary d-flex justify-content-between">
           <div className="col-1" />
@@ -33,9 +33,9 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
           <div className="col-2" style={{ width: '2em' }} />
         </div>
         {/* series */}
-        {props.workoutExercise.serietype === 'normal' ? (
+        {props.workoutExercise.serietype === 'normal' && !ontraining ? (
           <div className="row border-bottom border-secondary d-flex justify-content-between">
-            <span className="col-1 d-flex align-items-center border-end">
+            <span className="col-1 d-flex align-items-center justify-content-center border-end">
               {`${props.workoutExercise.series.length}x`}
             </span>
             <span className="col-3 d-flex align-items-center justify-content-center">
@@ -62,7 +62,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
                 key={i}
                 className="row border-bottom border-secondary d-flex justify-content-between"
               >
-                <span className="col-1 d-flex align-items-center border-end">
+                <span className="col-1 d-flex align-items-center justify-content-center border-end">
                   {i + 1}
                 </span>
                 <span className="col-3 d-flex align-items-center justify-content-center">
@@ -92,16 +92,16 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
             className="btn-info"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target={`#exerciseCollapse${props.exerciseKey}info`}
+            data-bs-target={`#exerciseCollapse${props.exerciseNum}info`}
             aria-expanded="false"
-            aria-controls={`exerciseCollapse${props.exerciseKey}info`}
+            aria-controls={`exerciseCollapse${props.exerciseNum}info`}
           >
             <img src={info} alt="info" />
           </button>
         </div>
         <div
           className="collapse border-top border-secondary mt-1 pt-1"
-          id={`exerciseCollapse${props.exerciseKey}info`}
+          id={`exerciseCollapse${props.exerciseNum}info`}
         >
           <div className="d-flex align-items-center justify-content-center flex-column">
             <div>
