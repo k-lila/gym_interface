@@ -1,12 +1,33 @@
 import { ExerciseStyled } from './styles'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootReducer } from '../../store'
 import edit from '../../assets/edit.png'
 import info from '../../assets/info.png'
-import { useSelector } from 'react-redux'
-import { RootReducer } from '../../store'
+import check from '../../assets/check_serie.png'
+import uncheck from '../../assets/uncheck_serie.png'
+import { addSerie } from '../../store/reducers/workoutlog'
 
 export const Exercise = ({ ...props }: ExerciseProps) => {
   const ontraining = useSelector((state: RootReducer) => state.logs.ontraining)
+  const seriesLog = useSelector((state: RootReducer) => state.logs.log.series)
 
+  const dispatch = useDispatch()
+
+  const exerciseName = props.workoutExercise.exercise.name
+  const exerciseChecks = seriesLog
+    ? seriesLog.filter((f) => f.exercise == exerciseName).length
+    : 0
+
+  const handlecheck = () => {
+    const now = new Date().toUTCString()
+    const serieCheck: SerieLog = {
+      datetime: now,
+      exercise: exerciseName,
+      repetitions: 10,
+      weight: 10
+    }
+    dispatch(addSerie(serieCheck))
+  }
   return (
     <ExerciseStyled>
       <button
@@ -32,7 +53,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
           <div className="col-5 text-center">carga</div>
           <div className="col-2" style={{ width: '2em' }} />
         </div>
-        {/* series */}
+        {/* series -------------------------------------------------- */}
         {props.workoutExercise.serietype === 'normal' && !ontraining ? (
           <div className="row border-bottom border-secondary d-flex justify-content-between">
             <span className="col-1 d-flex align-items-center justify-content-center border-end">
@@ -49,7 +70,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
                 : `${props.workoutExercise.series[0].weight} ${props.workoutExercise.series[0].unit}`}
             </span>
             <button
-              onClick={() => alert('aqui')}
+              onClick={() => alert('edit')}
               className="btn col-2 edit-btn"
             >
               <img src={edit} alt="edit" />
@@ -57,6 +78,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
           </div>
         ) : (
           props.workoutExercise.series.map((serie, i) => {
+            const checked = exerciseChecks ? exerciseChecks >= i + 1 : false
             return (
               <div
                 key={i}
@@ -75,17 +97,39 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
                     ? 'próprio corpo'
                     : `${serie.weight} ${serie.unit}`}
                 </span>
-                <button
-                  onClick={() => alert('aqui')}
-                  className="btn col-2 edit-btn"
-                >
-                  <img src={edit} alt="edit" />
-                </button>
+                {ontraining ? (
+                  // check ----------------------------------------------------
+                  checked ? (
+                    <button className="btn col-2 edit-btn">
+                      <img src={check} alt="checked" />
+                    </button>
+                  ) : i == exerciseChecks ? (
+                    <button
+                      onClick={handlecheck}
+                      className="btn col-2 edit-btn"
+                    >
+                      <img src={uncheck} alt="unchecked" />
+                    </button>
+                  ) : (
+                    <button
+                      style={{ opacity: 0 }}
+                      className="btn col-2 edit-btn"
+                    >
+                      <img src={uncheck} alt="unchecked" />
+                    </button>
+                  )
+                ) : (
+                  <button
+                    onClick={() => alert('edit')}
+                    className="btn col-2 edit-btn"
+                  >
+                    <img src={edit} alt="edit" />
+                  </button>
+                )}
               </div>
             )
           })
         )}
-
         <div className="d-flex justify-content-between align-items-center pt-1">
           <span>+ serie</span>
           <button
