@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const ExerciseStyled = styled.div.attrs({
-  className: 'my-4'
+  className: 'my-3'
 })`
   .edit-btn {
     height: 1em;

@@ -34,9 +34,14 @@ const logSlice = createSlice({
       state.log.series = state.log.series
         ? [...state.log.series, action.payload]
         : [action.payload]
+    },
+    eraser: (state) => {
+      state.ontraining = initialState.ontraining
+      state.log = initialState.log
     }
   }
 })
 
-export const { setSetupLog, setStart, setEnd, addSerie } = logSlice.actions
+export const { setSetupLog, setStart, setEnd, addSerie, eraser } =
+  logSlice.actions
 export default logSlice.reducer

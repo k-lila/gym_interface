@@ -3,7 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { RootReducer } from '../../store'
 import { Exercise } from '../../components/exercise'
 import { setDailyWorkout } from '../../store/reducers/preferences'
-import { setEnd, setSetupLog, setStart } from '../../store/reducers/workoutlog'
+import {
+  eraser,
+  setEnd,
+  setSetupLog,
+  setStart
+} from '../../store/reducers/workoutlog'
 
 export const WorkoutHandler = () => {
   const { id } = useParams()
@@ -21,6 +26,8 @@ export const WorkoutHandler = () => {
 
   const onTraining = useSelector((state: RootReducer) => state.logs.ontraining)
 
+  const log = useSelector((state: RootReducer) => state.logs.log)
+
   const navigate = useNavigate()
 
   const handleStart = () => {
@@ -31,6 +38,8 @@ export const WorkoutHandler = () => {
   const handleEnd = () => {
     const now = new Date().toUTCString()
     dispatch(setEnd(now))
+    console.log(log)
+    dispatch(eraser())
   }
 
   return (
