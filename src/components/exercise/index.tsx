@@ -43,6 +43,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
           <span className="ms-2">{props.workoutExercise.exercise.name}</span>
         </div>
       </button>
+      {/* collapse */}
       <div
         className="collapse container border border-dark border-2 rounded pb-1"
         id={`exerciseCollapse${props.exerciseNum}`}
@@ -53,7 +54,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
           <div className="col-5 text-center">carga</div>
           <div className="col-2" style={{ width: '2em' }} />
         </div>
-        {/* series -------------------------------------------------- */}
+        {/* series -------------------------------------------------------------------------------------------------- */}
         {props.workoutExercise.serietype === 'normal' && !ontraining ? (
           <div className="row border-bottom border-secondary d-flex justify-content-between">
             <span className="col-1 d-flex align-items-center justify-content-center border-end">
@@ -70,7 +71,8 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
                 : `${props.workoutExercise.series[0].weight} ${props.workoutExercise.series[0].unit}`}
             </span>
             <button
-              onClick={() => alert('edit')}
+              data-bs-toggle="modal"
+              data-bs-target="#checkeditModal"
               className="btn col-2 edit-btn"
             >
               <img src={edit} alt="edit" />
@@ -89,7 +91,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
                 </span>
                 <span className="col-3 d-flex align-items-center justify-content-center">
                   {serie.repetitions.length === 1
-                    ? `${serie.repetitions[0]} x`
+                    ? `${serie.repetitions[0]}x`
                     : `${serie.repetitions[0]}-${serie.repetitions[1]}x`}
                 </span>
                 <span className="col-5 d-flex align-items-center justify-content-center">
@@ -98,14 +100,15 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
                     : `${serie.weight} ${serie.unit}`}
                 </span>
                 {ontraining ? (
-                  // check ----------------------------------------------------
+                  // check -----------------------------------------------------------------------------
                   checked ? (
                     <button className="btn col-2 edit-btn">
                       <img src={check} alt="checked" />
                     </button>
                   ) : i == exerciseChecks ? (
                     <button
-                      onClick={handlecheck}
+                      data-bs-toggle="modal"
+                      data-bs-target={`#checkeditModal${props.exerciseNum}`}
                       className="btn col-2 edit-btn"
                     >
                       <img src={uncheck} alt="unchecked" />
@@ -120,7 +123,8 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
                   )
                 ) : (
                   <button
-                    onClick={() => alert('edit')}
+                    data-bs-toggle="modal"
+                    data-bs-target={`#checkeditModal${props.exerciseNum}`}
                     className="btn col-2 edit-btn"
                   >
                     <img src={edit} alt="edit" />
@@ -155,6 +159,52 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
                   return <span key={i}>{mg.name}</span>
                 })}
               </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* modal -------------------------------------------------------------------------- */}
+      <div
+        className="modal fade"
+        id={`checkeditModal${props.exerciseNum}`}
+        aria-labelledby="checkeditModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="checkeditModalLabel">
+                header
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            {/* body */}
+            <div className="modal-body mx-3 my-0">body</div>
+            <div className="modal-footer">
+              {ontraining ? (
+                <button
+                  onClick={handlecheck}
+                  type="button"
+                  className="btn btn-outline-success"
+                  data-bs-dismiss="modal"
+                >
+                  Confirma
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="btn btn-outline-success"
+                  data-bs-dismiss="modal"
+                >
+                  Salvar
+                </button>
+              )}
             </div>
           </div>
         </div>
