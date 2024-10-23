@@ -28,4 +28,8 @@ export const ExerciseStyled = styled.div.attrs({
       height: 100%;
     }
   }
+
+  .bg-checked {
+    background-color: #c4e0d2;
+  }
 `

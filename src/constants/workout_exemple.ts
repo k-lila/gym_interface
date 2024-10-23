@@ -23,17 +23,17 @@ export const daily_A: DailyWorkout = {
         },
         {
           repetitions: [10],
-          weight: 20,
+          weight: 22,
           unit: 'kg'
         },
         {
           repetitions: [8],
-          weight: 20,
+          weight: 24,
           unit: 'kg'
         },
         {
           repetitions: [6],
-          weight: 20,
+          weight: 26,
           unit: 'kg'
         }
       ],
