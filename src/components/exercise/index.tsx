@@ -29,6 +29,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
   const weight = currentSerie.weight ? currentSerie.weight : 0
   const [currentReps, setCurrentReps] = useState(currentSerie.repetitions[0])
   const [currentWeight, setCurrentWeight] = useState(weight)
+  const [onEditing, setOnEditing] = useState({ num: 1, currentSerie })
 
   useEffect(() => {
     setCurrentReps(currentSerie.repetitions[0])
@@ -75,7 +76,6 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
           <div className="col-2" style={{ width: '2em' }} />
         </div>
         {/* series -------------------------------------------------------------------------------------------------- */}
-
         {props.workoutExercise.serietype === 'normal' && !ontraining ? (
           <div className="row border-bottom border-secondary d-flex justify-content-between">
             <span className="col-1 d-flex align-items-center justify-content-center border-end">
@@ -93,7 +93,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
             </span>
             <button
               data-bs-toggle="modal"
-              data-bs-target="#checkeditModal"
+              data-bs-target={`#checkeditModal${props.exerciseNum}`}
               className="btn col-2 edit-btn"
             >
               <img src={edit} alt="edit" />
@@ -114,6 +114,9 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
               : exerciseLogs && exerciseLogs.length >= i + 1
               ? `${exerciseLogs[i].weight}${serie.unit}`
               : `${serie.weight}${serie.unit}`
+            const handleEditInfo = () => {
+              setOnEditing({ num: i, currentSerie: serie })
+            }
             return (
               <div
                 key={i}
@@ -155,6 +158,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
                     data-bs-toggle="modal"
                     data-bs-target={`#checkeditModal${props.exerciseNum}`}
                     className="btn col-2 edit-btn"
+                    onClick={handleEditInfo}
                   >
                     <img src={edit} alt="edit" />
                   </button>
@@ -189,7 +193,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
               )
             })
           : null}
-
+        {/* -------------------------------------------------------------------------------------------------------------------- */}
         <div className="d-flex justify-content-between align-items-center pt-1">
           {props.workoutExercise.series.length <= exerciseChecks &&
           ontraining ? (
@@ -243,9 +247,15 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="checkeditModalLabel">
-                {`${exerciseChecks + 1}x${
-                  props.workoutExercise.series.length
-                } - ${props.workoutExercise.exercise.name}`}
+                {ontraining
+                  ? `${exerciseChecks + 1}/${
+                      props.workoutExercise.series.length
+                    } - ${props.workoutExercise.exercise.name}`
+                  : props.workoutExercise.serietype == 'normal'
+                  ? exerciseName
+                  : `${onEditing.num + 1}/${
+                      props.workoutExercise.series.length
+                    } ${exerciseName}`}
               </h5>
               <button
                 type="button"
@@ -275,10 +285,14 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
                     </button>
                     <input
                       onChange={(e) => setCurrentReps(Number(e.target.value))}
-                      value={currentReps}
+                      value={
+                        ontraining
+                          ? currentReps
+                          : onEditing.currentSerie.repetitions[0]
+                      }
                       className="p-1 text-center fs-3 border rounded"
                       style={{
-                        width: '2em',
+                        width: '3em',
                         height: '100%',
                         margin: 'auto'
                       }}
@@ -301,21 +315,53 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
                         type="button"
                         className="btn btn-outline-primary m-2"
                         onClick={() =>
-                          setCurrentWeight(
-                            currentWeight - 1 <= 0 ? 0 : currentWeight - 1
-                          )
+                          ontraining
+                            ? setCurrentWeight(
+                                currentWeight - 1 <= 0 ? 0 : currentWeight - 1
+                              )
+                            : setOnEditing({
+                                num: onEditing.num,
+                                currentSerie: {
+                                  repetitions:
+                                    onEditing.currentSerie.repetitions,
+                                  weight: onEditing.currentSerie.weight
+                                    ? onEditing.currentSerie.weight - 1
+                                    : undefined,
+                                  unit: onEditing.currentSerie.unit
+                                    ? onEditing.currentSerie.unit
+                                    : undefined
+                                }
+                              })
                         }
                       >
                         -
                       </button>
                       <input
                         onChange={(e) =>
-                          setCurrentWeight(Number(e.target.value))
+                          ontraining
+                            ? setCurrentWeight(Number(e.target.value))
+                            : setOnEditing({
+                                num: onEditing.num,
+                                currentSerie: {
+                                  repetitions:
+                                    onEditing.currentSerie.repetitions,
+                                  weight: onEditing.currentSerie.weight
+                                    ? Number(e.target.value)
+                                    : undefined,
+                                  unit: onEditing.currentSerie.unit
+                                    ? onEditing.currentSerie.unit
+                                    : undefined
+                                }
+                              })
                         }
-                        value={currentWeight}
+                        value={
+                          ontraining
+                            ? currentWeight
+                            : onEditing.currentSerie.weight
+                        }
                         className="p-1 text-center fs-3 border rounded"
                         style={{
-                          width: '2em',
+                          width: '3em',
                           height: '100%',
                           margin: 'auto'
                         }}
@@ -324,7 +370,23 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
                       <button
                         type="button"
                         className="btn btn-outline-primary m-2"
-                        onClick={() => setCurrentWeight(currentWeight + 1)}
+                        onClick={() =>
+                          ontraining
+                            ? setCurrentWeight(currentWeight + 1)
+                            : setOnEditing({
+                                num: onEditing.num,
+                                currentSerie: {
+                                  repetitions:
+                                    onEditing.currentSerie.repetitions,
+                                  weight: onEditing.currentSerie.weight
+                                    ? onEditing.currentSerie.weight + 1
+                                    : undefined,
+                                  unit: onEditing.currentSerie.unit
+                                    ? onEditing.currentSerie.unit
+                                    : undefined
+                                }
+                              })
+                        }
                       >
                         +
                       </button>
