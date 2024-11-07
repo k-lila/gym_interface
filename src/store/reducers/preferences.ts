@@ -1,23 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type PreferencesState = {
-  defaultworkout: string
-  dailyworkout: string
+  defaultworkout: Workout | undefined
+  dailyworkout: DailyWorkout | undefined
 }
 
 const initialState: PreferencesState = {
-  defaultworkout: 'musculação1',
-  dailyworkout: 'A'
+  defaultworkout: undefined,
+  dailyworkout: undefined
 }
 
 const preferencesSlice = createSlice({
   name: 'preferences',
   initialState,
   reducers: {
-    setDefaultWorkout: (state, action: PayloadAction<string>) => {
+    setDefaultWorkout: (state, action: PayloadAction<Workout>) => {
       state.defaultworkout = action.payload
     },
-    setDailyWorkout: (state, action: PayloadAction<string>) => {
+    setDailyWorkout: (
+      state,
+      action: PayloadAction<DailyWorkout | undefined>
+    ) => {
       state.dailyworkout = action.payload
     }
   }

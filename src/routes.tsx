@@ -5,7 +5,7 @@ export const Paths = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/workout/:id" element={<Workout />} />
+      <Route path="/workout" element={<Workout />} />
     </Routes>
   )
 }

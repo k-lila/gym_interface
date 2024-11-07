@@ -3,6 +3,19 @@ declare type ExerciseProps = {
   workoutExercise: WorkoutExercise
 }
 
-declare type PieProps = {
-  $values: Array<number>
+declare type SeriesProps = {
+  workoutExercise: WorkoutExercise
+}
+
+declare type SerieProps = {
+  serienum: number
+  name: string
+  exercise: ExerciseSerie
+  bodyweight: boolean
+  unit?: string
+}
+
+declare type ModalWorkoutProps = {
+  daily_active: DailyWorkout
+  workout_name: string
 }
