@@ -1,206 +1,99 @@
 import { ExerciseStyled } from './styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
-import edit from '../../assets/edit.png'
 import info from '../../assets/info.png'
-import check from '../../assets/check_serie.png'
-import uncheck from '../../assets/uncheck_serie.png'
-import { addSerie } from '../../store/reducers/workoutlog'
-import { useEffect, useState } from 'react'
+import { Serie } from '../serie'
+import { setCheckSerie } from '../../store/reducers/checkedit'
 
 export const Exercise = ({ ...props }: ExerciseProps) => {
   const dispatch = useDispatch()
-
   const exerciseName = props.workoutExercise.exercise.name
-
   const ontraining = useSelector((state: RootReducer) => state.logs.ontraining)
-  const seriesLog = useSelector((state: RootReducer) => state.logs.log.series)
-  const exerciseLogs = seriesLog?.filter((f) => f.exercise == exerciseName)
-
-  const exerciseChecks = seriesLog
-    ? seriesLog.filter((f) => f.exercise == exerciseName).length
-    : 0
-  const currentSerie = props.workoutExercise.series[exerciseChecks]
-    ? props.workoutExercise.series[exerciseChecks]
-    : props.workoutExercise.series[props.workoutExercise.series.length - 1]
-
-  const extraSeriesNum = props.workoutExercise.series.length - exerciseChecks
-
-  const weight = currentSerie.weight ? currentSerie.weight : 0
-  const [currentReps, setCurrentReps] = useState(currentSerie.repetitions[0])
-  const [currentWeight, setCurrentWeight] = useState(weight)
-  const [onEditing, setOnEditing] = useState({ num: 1, currentSerie })
-
-  useEffect(() => {
-    setCurrentReps(currentSerie.repetitions[0])
-    setCurrentWeight(weight)
-  }, [currentSerie])
-
-  const handleCheck = () => {
-    const now = new Date().toUTCString()
-    const serieCheck: SerieLog = {
-      datetime: now,
-      exercise: exerciseName,
-      repetitions: currentReps,
-      weight: currentWeight
-    }
-    dispatch(addSerie(serieCheck))
-  }
+  const seriesLog = useSelector(
+    (state: RootReducer) => state.logs.log.series
+  )?.filter((f) => f.exercise == exerciseName)
+  const exerciseChecks = seriesLog ? seriesLog.length : 0
+  const extraSeries = seriesLog?.slice(props.workoutExercise.series.length)
 
   return (
     <ExerciseStyled>
       <button
-        className="btn btn-outline-dark w-100 d-flex justify-content-between align-items-center border-2"
+        className="btn border-dark w-100 d-flex justify-content-start align-items-center border-2"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target={`#exerciseCollapse${props.exerciseNum}`}
         aria-expanded="false"
         aria-controls={`exerciseCollapse${props.exerciseNum}`}
       >
-        <div>
-          <b>{props.exerciseNum + 1}</b>
-          <b>
-            <span className="ms-2">{props.workoutExercise.exercise.name}</span>
-          </b>
-        </div>
+        <b>{props.exerciseNum + 1}</b>
+        <b className="ms-2">{props.workoutExercise.exercise.name}</b>
       </button>
-      {/* collapse */}
       <div
-        className="collapse container border border-dark border-2 rounded pb-1"
+        className="collapse container border border-dark border-2 rounded"
         id={`exerciseCollapse${props.exerciseNum}`}
       >
-        <div className="row mt-1 border-bottom border-secondary d-flex justify-content-between">
+        <div className="row mt-1 border-bottom border-dark d-flex justify-content-between">
           <div className="col-1" />
           <div className="col-3 text-center">rep</div>
           <div className="col-5 text-center">carga</div>
           <div className="col-2" style={{ width: '2em' }} />
         </div>
-        {/* series -------------------------------------------------------------------------------------------------- */}
-        {props.workoutExercise.serietype === 'normal' && !ontraining ? (
-          <div className="row border-bottom border-secondary d-flex justify-content-between">
-            <span className="col-1 d-flex align-items-center justify-content-center border-end">
-              {`${props.workoutExercise.series.length}x`}
-            </span>
-            <span className="col-3 d-flex align-items-center justify-content-center">
-              {props.workoutExercise.series[0].repetitions.length === 1
-                ? `${props.workoutExercise.series[0].repetitions[0]} x`
-                : `${props.workoutExercise.series[0].repetitions[0]}-${props.workoutExercise.series[0].repetitions[1]}x`}
-            </span>
-            <span className="col-5 d-flex align-items-center justify-content-center">
-              {props.workoutExercise.bodyweight
-                ? 'próprio corpo'
-                : `${props.workoutExercise.series[0].weight} ${props.workoutExercise.series[0].unit}`}
-            </span>
-            <button
-              data-bs-toggle="modal"
-              data-bs-target={`#checkeditModal${props.exerciseNum}`}
-              className="btn col-2 edit-btn"
-            >
-              <img src={edit} alt="edit" />
-            </button>
-          </div>
+        {props.workoutExercise.serietype == 'normal' && !ontraining ? (
+          <Serie
+            name={props.workoutExercise.exercise.name}
+            serienum={props.workoutExercise.series.length}
+            bodyweight={props.workoutExercise.bodyweight ? true : false}
+            unit={props.workoutExercise.unit}
+            exercise={props.workoutExercise.series[0]}
+          />
         ) : (
           props.workoutExercise.series.map((serie, i) => {
-            const checked = exerciseChecks ? exerciseChecks >= i + 1 : false
-            const bground = checked ? 'bg-checked' : ''
-            const rep =
-              exerciseLogs && exerciseLogs.length >= i + 1
-                ? `${exerciseLogs[i].repetitions}x`
-                : serie.repetitions.length === 1
-                ? `${serie.repetitions[0]}x`
-                : `${serie.repetitions[0]}-${serie.repetitions[1]}x`
-            const wgt = props.workoutExercise.bodyweight
-              ? 'próprio corpo'
-              : exerciseLogs && exerciseLogs.length >= i + 1
-              ? `${exerciseLogs[i].weight}${serie.unit}`
-              : `${serie.weight}${serie.unit}`
-            const handleEditInfo = () => {
-              setOnEditing({ num: i, currentSerie: serie })
-            }
             return (
-              <div
+              <Serie
+                name={props.workoutExercise.exercise.name}
+                serienum={i + 1}
+                bodyweight={props.workoutExercise.bodyweight ? true : false}
+                unit={props.workoutExercise.unit}
+                exercise={serie}
                 key={i}
-                className={`row border-bottom border-secondary d-flex justify-content-between ${bground}`}
-              >
-                <span className="col-1 d-flex align-items-center justify-content-center border-end">
-                  {i + 1}
-                </span>
-                <span className="col-3 d-flex align-items-center justify-content-center">
-                  {rep}
-                </span>
-                <span className="col-5 d-flex align-items-center justify-content-center">
-                  {wgt}
-                </span>
-                {/* ontraining ------------------------------------------------------------------------------------------------ */}
-                {ontraining ? (
-                  checked ? (
-                    <button className="btn col-2 edit-btn">
-                      <img src={check} alt="checked" />
-                    </button>
-                  ) : i == exerciseChecks ? (
-                    <button
-                      data-bs-toggle="modal"
-                      data-bs-target={`#checkeditModal${props.exerciseNum}`}
-                      className="btn col-2 edit-btn"
-                    >
-                      <img src={uncheck} alt="unchecked" />
-                    </button>
-                  ) : (
-                    <button
-                      style={{ opacity: 0 }}
-                      className="btn col-2 edit-btn"
-                    >
-                      <img src={uncheck} alt="unchecked" />
-                    </button>
-                  )
-                ) : (
-                  <button
-                    data-bs-toggle="modal"
-                    data-bs-target={`#checkeditModal${props.exerciseNum}`}
-                    className="btn col-2 edit-btn"
-                    onClick={handleEditInfo}
-                  >
-                    <img src={edit} alt="edit" />
-                  </button>
-                )}
-              </div>
+              />
             )
           })
         )}
-        {/* extraSeries -------------------------------------------------------------------------------------------------------------------- */}
-        {extraSeriesNum < 0
-          ? exerciseLogs?.slice(extraSeriesNum).map((extra, i) => {
+
+        {extraSeries
+          ? extraSeries.map((extra, i) => {
               return (
-                <div
+                <Serie
                   key={i}
-                  className="row border-bottom border-secondary d-flex justify-content-between bg-checked"
-                >
-                  <span className="col-1 d-flex align-items-center justify-content-center border-end">
-                    x
-                  </span>
-                  <span className="col-3 d-flex align-items-center justify-content-center">
-                    {extra.repetitions}x
-                  </span>
-                  <span className="col-5 d-flex align-items-center justify-content-center">
-                    {props.workoutExercise.bodyweight
-                      ? 'próprio corpo'
-                      : `${extra.weight}${props.workoutExercise.series[0].unit}`}
-                  </span>
-                  <button className="btn col-2 edit-btn">
-                    <img src={check} alt="checked" />
-                  </button>
-                </div>
+                  name={props.workoutExercise.exercise.name}
+                  serienum={props.workoutExercise.series.length + i + 1}
+                  bodyweight={props.workoutExercise.bodyweight ? true : false}
+                  unit={props.workoutExercise.unit}
+                  exercise={{
+                    repetitions: [extra.repetitions],
+                    weight: extra.weight
+                  }}
+                />
               )
             })
           : null}
-        {/* -------------------------------------------------------------------------------------------------------------------- */}
-        <div className="d-flex justify-content-between align-items-center pt-1">
+
+        <div className="d-flex justify-content-between align-items-center p-1">
           {props.workoutExercise.series.length <= exerciseChecks &&
           ontraining ? (
             <button
               type="button"
               data-bs-toggle="modal"
-              data-bs-target={`#checkeditModal${props.exerciseNum}`}
+              data-bs-target="#modalCheck"
+              onClick={() =>
+                dispatch(
+                  setCheckSerie({
+                    name: props.workoutExercise.exercise.name,
+                    num: props.workoutExercise.series.length
+                  })
+                )
+              }
               className="btn btn-outline-danger px-2 py-1"
             >
               + series
@@ -219,201 +112,19 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
             <img src={info} alt="info" />
           </button>
         </div>
+
         <div
-          className="collapse border-top border-secondary mt-1 pt-1"
+          className="collapse border-top border-secondary"
           id={`exerciseCollapse${props.exerciseNum}info`}
         >
-          <div className="d-flex align-items-center justify-content-center flex-column">
+          <div className="d-flex align-items-center justify-content-center flex-column mt-1">
             <div>
               <p>
-                <b>main: </b>
+                <b>Grupo principal: </b>
                 {props.workoutExercise.exercise.musclegroup.map((mg, i) => {
                   return <span key={i}>{mg.name}</span>
                 })}
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* modal -------------------------------------------------------------------------- */}
-      <div
-        className="modal fade"
-        id={`checkeditModal${props.exerciseNum}`}
-        aria-labelledby="checkeditModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="checkeditModalLabel">
-                {ontraining
-                  ? `${exerciseChecks + 1}/${
-                      props.workoutExercise.series.length
-                    } - ${props.workoutExercise.exercise.name}`
-                  : props.workoutExercise.serietype == 'normal'
-                  ? exerciseName
-                  : `${onEditing.num + 1}/${
-                      props.workoutExercise.series.length
-                    } ${exerciseName}`}
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            {/* modal body --------------------------------------------------------------------------- */}
-            <div className="modal-body mx-3 my-0">
-              <form>
-                <div className="d-flex flex-column align-items-center">
-                  <label className="form-label d-flex my-auto">
-                    repetições
-                  </label>
-                  <div className="d-flex">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setCurrentReps(
-                          currentReps - 1 <= 1 ? 1 : currentReps - 1
-                        )
-                      }
-                      className="btn btn-outline-primary m-2"
-                    >
-                      -
-                    </button>
-                    <input
-                      onChange={(e) => setCurrentReps(Number(e.target.value))}
-                      value={
-                        ontraining
-                          ? currentReps
-                          : onEditing.currentSerie.repetitions[0]
-                      }
-                      className="p-1 text-center fs-3 border rounded"
-                      style={{
-                        width: '3em',
-                        height: '100%',
-                        margin: 'auto'
-                      }}
-                      type="number"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setCurrentReps(currentReps + 1)}
-                      className="btn btn-outline-primary m-2"
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-                {props.workoutExercise.bodyweight ? null : (
-                  <div className="d-flex flex-column align-items-center">
-                    <label className="form-label d-flex my-auto">{`carga (${currentSerie.unit})`}</label>
-                    <div className="d-flex">
-                      <button
-                        type="button"
-                        className="btn btn-outline-primary m-2"
-                        onClick={() =>
-                          ontraining
-                            ? setCurrentWeight(
-                                currentWeight - 1 <= 0 ? 0 : currentWeight - 1
-                              )
-                            : setOnEditing({
-                                num: onEditing.num,
-                                currentSerie: {
-                                  repetitions:
-                                    onEditing.currentSerie.repetitions,
-                                  weight: onEditing.currentSerie.weight
-                                    ? onEditing.currentSerie.weight - 1
-                                    : undefined,
-                                  unit: onEditing.currentSerie.unit
-                                    ? onEditing.currentSerie.unit
-                                    : undefined
-                                }
-                              })
-                        }
-                      >
-                        -
-                      </button>
-                      <input
-                        onChange={(e) =>
-                          ontraining
-                            ? setCurrentWeight(Number(e.target.value))
-                            : setOnEditing({
-                                num: onEditing.num,
-                                currentSerie: {
-                                  repetitions:
-                                    onEditing.currentSerie.repetitions,
-                                  weight: onEditing.currentSerie.weight
-                                    ? Number(e.target.value)
-                                    : undefined,
-                                  unit: onEditing.currentSerie.unit
-                                    ? onEditing.currentSerie.unit
-                                    : undefined
-                                }
-                              })
-                        }
-                        value={
-                          ontraining
-                            ? currentWeight
-                            : onEditing.currentSerie.weight
-                        }
-                        className="p-1 text-center fs-3 border rounded"
-                        style={{
-                          width: '3em',
-                          height: '100%',
-                          margin: 'auto'
-                        }}
-                        type="number"
-                      />
-                      <button
-                        type="button"
-                        className="btn btn-outline-primary m-2"
-                        onClick={() =>
-                          ontraining
-                            ? setCurrentWeight(currentWeight + 1)
-                            : setOnEditing({
-                                num: onEditing.num,
-                                currentSerie: {
-                                  repetitions:
-                                    onEditing.currentSerie.repetitions,
-                                  weight: onEditing.currentSerie.weight
-                                    ? onEditing.currentSerie.weight + 1
-                                    : undefined,
-                                  unit: onEditing.currentSerie.unit
-                                    ? onEditing.currentSerie.unit
-                                    : undefined
-                                }
-                              })
-                        }
-                      >
-                        +
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </form>
-            </div>
-            <div className="modal-footer">
-              {ontraining ? (
-                <button
-                  onClick={handleCheck}
-                  type="button"
-                  className="btn btn-outline-success"
-                  data-bs-dismiss="modal"
-                >
-                  Confirma
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  className="btn btn-outline-success"
-                  data-bs-dismiss="modal"
-                >
-                  Salvar
-                </button>
-              )}
             </div>
           </div>
         </div>

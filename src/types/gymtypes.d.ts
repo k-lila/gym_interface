@@ -11,16 +11,16 @@ declare type Exercise = {
 declare type ExerciseSerie = {
   repetitions: [number] | [number, number]
   weight?: number
-  unit?: string
 }
 
 declare type WorkoutExercise = {
   exercise: Exercise
   serietype: 'normal' | 'custom'
   series: Array<ExerciseSerie>
+  rest: number
+  unit?: string
   grip?: 'supinada' | 'neutra' | 'pronada'
   bodyweight?: boolean
-  rest: number
   obs?: string
 }
 
