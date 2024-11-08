@@ -5,6 +5,7 @@ import { Exercise } from '../../components/exercise'
 import { setDailyWorkout } from '../../store/reducers/preferences'
 import { ModalWorkout } from '../../components/modal_startend'
 import { ModalCheck } from '../../components/modal_check'
+import { RestCounter } from '../../components/rest_counter'
 
 export const WorkoutHandler = () => {
   const navigate = useNavigate()
@@ -16,8 +17,10 @@ export const WorkoutHandler = () => {
   const dailyworkout = useSelector(
     (state: RootReducer) => state.preferences.dailyworkout
   )
-
   const onTraining = useSelector((state: RootReducer) => state.logs.ontraining)
+  const rest_counter_key = useSelector(
+    (state: RootReducer) => state.logs.log.series
+  )?.length
 
   return (
     <main>
@@ -77,15 +80,24 @@ export const WorkoutHandler = () => {
           )
         })}
       </div>
-      <footer className="bg-dark w-100 p-2 d-flex justify-content-center position-fixed bottom-0">
+      <footer
+        className={`bg-dark w-100 p-2 d-flex ${
+          rest_counter_key
+            ? 'justify-content-between'
+            : 'justify-content-center'
+        } position-fixed bottom-0`}
+      >
         {onTraining ? (
-          <button
-            className="btn btn-light"
-            data-bs-toggle="modal"
-            data-bs-target="#confirmModal"
-          >
-            Finalizar treino
-          </button>
+          <>
+            <button
+              className="btn btn-light"
+              data-bs-toggle="modal"
+              data-bs-target="#confirmModal"
+            >
+              Finalizar treino
+            </button>
+            {rest_counter_key ? <RestCounter key={rest_counter_key} /> : null}
+          </>
         ) : (
           <button
             className="btn btn-light"

@@ -15,6 +15,10 @@ declare type SerieProps = {
   unit?: string
 }
 
+declare type ExerciseInfoProps = {
+  exercise: WorkoutExercise
+}
+
 declare type ModalWorkoutProps = {
   daily_active: DailyWorkout
   workout_name: string
