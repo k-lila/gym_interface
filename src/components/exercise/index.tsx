@@ -4,6 +4,7 @@ import { RootReducer } from '../../store'
 import info from '../../assets/info.png'
 import { Serie } from '../serie'
 import { setCheckSerie } from '../../store/reducers/checkedit'
+import { ExerciseInfo } from '../exercise_info'
 
 export const Exercise = ({ ...props }: ExerciseProps) => {
   const dispatch = useDispatch()
@@ -28,6 +29,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
         <b>{props.exerciseNum + 1}</b>
         <b className="ms-2">{props.workoutExercise.exercise.name}</b>
       </button>
+
       <div
         className="collapse container border border-dark border-2 rounded"
         id={`exerciseCollapse${props.exerciseNum}`}
@@ -118,14 +120,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
           id={`exerciseCollapse${props.exerciseNum}info`}
         >
           <div className="d-flex align-items-center justify-content-center flex-column mt-1">
-            <div>
-              <p>
-                <b>Grupo principal: </b>
-                {props.workoutExercise.exercise.musclegroup.map((mg, i) => {
-                  return <span key={i}>{mg.name}</span>
-                })}
-              </p>
-            </div>
+            <ExerciseInfo exercise={props.workoutExercise} />
           </div>
         </div>
       </div>
