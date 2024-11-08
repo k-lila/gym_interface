@@ -34,7 +34,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
       >
         <div className="row mt-1 border-bottom border-dark d-flex justify-content-between">
           <div className="col-1" />
-          <div className="col-3 text-center">rep</div>
+          <div className="col-4 text-center">rep</div>
           <div className="col-5 text-center">carga</div>
           <div className="col-2" style={{ width: '2em' }} />
         </div>

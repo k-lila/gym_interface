@@ -27,7 +27,7 @@ export const Serie = ({ ...props }: SerieProps) => {
       <span className="col-1 d-flex align-items-center justify-content-center border-end">
         {props.serienum}
       </span>
-      <span className="col-3 d-flex align-items-center justify-content-center">
+      <span className="col-4 d-flex align-items-center justify-content-center">
         {ontraining && exerciseLogs && exerciseLogs.length >= props.serienum
           ? `${exerciseLogs[props.serienum - 1].repetitions}x`
           : props.exercise.repetitions.length === 1
