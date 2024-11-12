@@ -19,6 +19,7 @@ export const ModalWorkout = () => {
   )
   const log = useSelector((state: RootReducer) => state.logs.log)
   const onTraining = useSelector((state: RootReducer) => state.logs.ontraining)
+
   const handleStart = () => {
     const now = new Date().toUTCString()
     if (daily) {
@@ -61,7 +62,19 @@ export const ModalWorkout = () => {
           </div>
           <div className="modal-body mx-3 my-0">
             {onTraining ? (
-              <div>asd</div>
+              <article>
+                <p>
+                  <b>Treino: </b>
+                  {log.workout?.name}
+                </p>
+                <p>
+                  <b>Séries feitas: </b>
+                  {`${log.series?.length}`}
+                </p>
+                <p>
+                  <b>Tempo transcorrido: </b>
+                </p>
+              </article>
             ) : (
               <>
                 <div className="row">

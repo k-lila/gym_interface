@@ -6,6 +6,7 @@ import { setDailyWorkout } from '../../store/reducers/preferences'
 import { ModalWorkout } from '../../components/modal_startend'
 import { ModalCheck } from '../../components/modal_check'
 import { RestCounter } from '../../components/rest_counter'
+import { ProgressBar } from '../../components/progress_bar'
 
 export const WorkoutHandler = () => {
   const navigate = useNavigate()
@@ -69,6 +70,7 @@ export const WorkoutHandler = () => {
           </div>
         </div>
       </header>
+      {onTraining ? <ProgressBar /> : null}
       <div className="p-2 mb-5">
         {dailyworkout?.exercises.map((w, i) => {
           return (

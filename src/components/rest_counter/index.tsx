@@ -22,6 +22,7 @@ export const RestCounter = () => {
   const [seconds, setSeconds] = useState(sec)
   const [minuts, setMinuts] = useState(min)
   const [rest, setRest] = useState(true)
+  const [on, setOn] = useState(false)
 
   useEffect(() => {
     const counter = setInterval(() => {
