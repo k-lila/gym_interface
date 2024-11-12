@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type WorkoutLogState = {
   ontraining: boolean
+  finishtime: string
   log: WorkoutLog
 }
 
 const initialState: WorkoutLogState = {
   ontraining: false,
+  finishtime: '',
   log: {
     workout: undefined,
     start: undefined,
@@ -30,6 +32,9 @@ const logSlice = createSlice({
       state.log.end = action.payload
       state.ontraining = false
     },
+    setFinish: (state, action: PayloadAction<string>) => {
+      state.finishtime = action.payload
+    },
     addSerie: (state, action: PayloadAction<SerieLog>) => {
       state.log.series = state.log.series
         ? [...state.log.series, action.payload]
@@ -42,6 +47,6 @@ const logSlice = createSlice({
   }
 })
 
-export const { setSetupLog, setStart, setEnd, addSerie, eraser } =
+export const { setSetupLog, setStart, setEnd, setFinish, addSerie, eraser } =
   logSlice.actions
 export default logSlice.reducer
