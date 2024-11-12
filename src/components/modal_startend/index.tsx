@@ -17,9 +17,12 @@ export const ModalWorkout = () => {
   const daily = useSelector(
     (state: RootReducer) => state.preferences.dailyworkout
   )
-  const log = useSelector((state: RootReducer) => state.logs.log)
+  const log = useSelector((state: RootReducer) => state.logs)
   const onTraining = useSelector((state: RootReducer) => state.logs.ontraining)
-
+  let totalSeries = 0
+  log.log.workout?.exercises.map((ex) => {
+    totalSeries = totalSeries + ex.series.length
+  })
   const handleStart = () => {
     const now = new Date().toUTCString()
     if (daily) {
@@ -32,9 +35,24 @@ export const ModalWorkout = () => {
     dispatch(setEnd(now))
   }
 
+  const getTime = () => {
+    if (log.log.start) {
+      const start = new Date(log.log.start)
+      const now = new Date(log.finishtime)
+      const diff = now.getTime() - start.getTime()
+      const totalSeconds = diff / 1000
+      const hours = Math.floor(totalSeconds / 3600)
+      const minutes = Math.floor((totalSeconds % 3600) / 60)
+      const seconds = totalSeconds % 60
+      return `${hours > 9 ? '' : '0'}${hours}:${
+        minutes > 9 ? '' : '0'
+      }${minutes}:${seconds > 9 ? '' : '0'}${seconds}`
+    }
+  }
+
   useEffect(() => {
-    const teste = log.end ? true : false
-    if (teste) {
+    const end = log.log.end ? true : false
+    if (end) {
       console.log(log)
       dispatch(eraser())
     }
@@ -63,16 +81,13 @@ export const ModalWorkout = () => {
           <div className="modal-body mx-3 my-0">
             {onTraining ? (
               <article>
-                <p>
-                  <b>Treino: </b>
-                  {log.workout?.name}
+                <p className="d-flex my-2">
+                  <b>Séries feitas:&nbsp;</b>
+                  {`${log.log.series?.length}/${totalSeries}`}
                 </p>
-                <p>
-                  <b>Séries feitas: </b>
-                  {`${log.series?.length}`}
-                </p>
-                <p>
-                  <b>Tempo transcorrido: </b>
+                <p className="d-flex my-2">
+                  <b>Tempo aproximado:&nbsp;</b>
+                  {getTime()}
                 </p>
               </article>
             ) : (

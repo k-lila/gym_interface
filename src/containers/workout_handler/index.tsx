@@ -7,6 +7,7 @@ import { ModalWorkout } from '../../components/modal_startend'
 import { ModalCheck } from '../../components/modal_check'
 import { RestCounter } from '../../components/rest_counter'
 import { ProgressBar } from '../../components/progress_bar'
+import { setFinish } from '../../store/reducers/workoutlog'
 
 export const WorkoutHandler = () => {
   const navigate = useNavigate()
@@ -22,6 +23,11 @@ export const WorkoutHandler = () => {
   const rest_counter_key = useSelector(
     (state: RootReducer) => state.logs.log.series
   )?.length
+
+  const handleFinish = () => {
+    const now = new Date().toUTCString()
+    dispatch(setFinish(now))
+  }
 
   return (
     <main>
@@ -95,6 +101,7 @@ export const WorkoutHandler = () => {
               className="btn btn-light"
               data-bs-toggle="modal"
               data-bs-target="#confirmModal"
+              onClick={handleFinish}
             >
               Finalizar treino
             </button>
