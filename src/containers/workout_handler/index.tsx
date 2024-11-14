@@ -8,6 +8,7 @@ import { ModalCheck } from '../../components/modal_check'
 import { RestCounter } from '../../components/rest_counter'
 import { ProgressBar } from '../../components/progress_bar'
 import { setFinish } from '../../store/reducers/workoutlog'
+import { ModalEdit } from '../../components/modal_edit'
 
 export const WorkoutHandler = () => {
   const navigate = useNavigate()
@@ -119,6 +120,7 @@ export const WorkoutHandler = () => {
       </footer>
       {dailyworkout ? <ModalWorkout /> : null}
       <ModalCheck />
+      <ModalEdit />
     </main>
   )
 }

@@ -69,7 +69,7 @@ export const ModalCheck = () => {
                   htmlFor="repetitions"
                   className="form-label d-flex my-auto"
                 >
-                  repetições
+                  <b>repetições</b>
                 </label>
                 <div className="d-flex">
                   <button
@@ -105,7 +105,7 @@ export const ModalCheck = () => {
               {exercise?.bodyweight ? null : (
                 <div className="d-flex flex-column align-items-center">
                   <label htmlFor="weight" className="form-label d-flex my-auto">
-                    carga
+                    <b>carga</b>
                   </label>
                   <div className="d-flex">
                     <button
@@ -113,9 +113,7 @@ export const ModalCheck = () => {
                       className="btn btn-outline-primary m-2"
                       onClick={() =>
                         setCurrentWeight(
-                          currentWeight - unitWeight <= unitWeight
-                            ? unitWeight
-                            : currentWeight - unitWeight
+                          Math.max(currentWeight - unitWeight, 0)
                         )
                       }
                     >
