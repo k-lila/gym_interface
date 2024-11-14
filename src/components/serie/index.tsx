@@ -63,7 +63,12 @@ export const Serie = ({ ...props }: SerieProps) => {
           </button>
         )
       ) : (
-        <button className="btn col-2 edit-btn">
+        <button
+          data-bs-toggle="modal"
+          data-bs-target="#modalEdit"
+          className="btn col-2 edit-btn"
+          onClick={handleCheck}
+        >
           <img src={edit} alt="edit" />
         </button>
       )}
