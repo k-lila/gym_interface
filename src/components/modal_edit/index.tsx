@@ -1,7 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { useEffect, useState } from 'react'
-import { editSerie } from '../../store/reducers/workouts'
+import { editWorkoutExercise } from '../../utils/editworkout'
+import { editWorkout } from '../../store/reducers/workouts'
+import {
+  setDailyWorkout,
+  setDefaultWorkout
+} from '../../store/reducers/preferences'
 
 export const ModalEdit = () => {
   const unitWeight = 1
@@ -51,27 +56,36 @@ export const ModalEdit = () => {
       repetitions: minRep == maxRep ? [minRep] : [minRep, maxRep],
       weight: exercise?.bodyweight ? undefined : currentWeight
     }
+    let newSerieArray: ExerciseSerie[]
     if (exercise?.serietype == 'normal') {
-      const newSerieArray = Array(4)
+      newSerieArray = Array(4)
         .fill(null)
         .map(() => newSerie)
-      if (workout && daily) {
-        dispatch(
-          editSerie({
-            workoutName: workout.name,
-            dailyName: daily.name,
-            exerciseName: exercise.exercise.name,
-            editedSeries: newSerieArray
-          })
-        )
-      }
     } else {
-      const newSerieArray = exercise?.series.map((serie, i) => {
-        if (onEdit) {
-          return i === onEdit?.num - 1 ? newSerie : serie
+      newSerieArray = []
+      exercise?.series.forEach((serie, i) => {
+        if (onEdit && i === onEdit.num - 1) {
+          newSerieArray.push(newSerie)
+        } else if (serie) {
+          newSerieArray.push(serie)
         }
       })
-      console.log(newSerieArray)
+    }
+    if (exercise && daily && workout) {
+      const newWorkoutExercise: WorkoutExercise = {
+        ...exercise,
+        series: newSerieArray
+      }
+      const newDaily = editWorkoutExercise(daily, newWorkoutExercise)
+      const newWorkout: Workout = {
+        ...workout,
+        workouts: workout.workouts.map((w) => {
+          return w.name == newDaily.name ? newDaily : w
+        })
+      }
+      dispatch(editWorkout(newWorkout))
+      dispatch(setDefaultWorkout(newWorkout))
+      dispatch(setDailyWorkout(newDaily))
     }
   }
 
@@ -135,7 +149,14 @@ export const ModalEdit = () => {
                   <button
                     type="button"
                     className="btn btn-outline-primary m-2"
-                    onClick={() => setMinRep(Math.min(minRep + 1, maxRep))}
+                    onClick={() => {
+                      if (minRep == maxRep) {
+                        setMinRep(minRep + 1)
+                        setMaxRep(maxRep + 1)
+                      } else {
+                        setMinRep(minRep + 1)
+                      }
+                    }}
                   >
                     +
                   </button>
@@ -164,7 +185,14 @@ export const ModalEdit = () => {
                   <button
                     type="button"
                     className="btn btn-outline-primary m-2"
-                    onClick={() => setMaxRep(Math.max(maxRep - 1, minRep))}
+                    onClick={() => {
+                      if (maxRep == minRep) {
+                        setMinRep(Math.max(minRep - 1, 1))
+                        setMaxRep(Math.max(maxRep - 1, 1))
+                      } else {
+                        setMaxRep(maxRep - 1)
+                      }
+                    }}
                   >
                     -
                   </button>

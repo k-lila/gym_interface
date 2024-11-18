@@ -15,7 +15,7 @@ const checkeditSlice = createSlice({
   name: 'checkedit',
   initialState,
   reducers: {
-    setCheckSerie: (
+    setCheckEditSerie: (
       state,
       action: PayloadAction<{ name: string; num: number }>
     ) => {
@@ -24,5 +24,5 @@ const checkeditSlice = createSlice({
   }
 })
 
-export const { setCheckSerie } = checkeditSlice.actions
+export const { setCheckEditSerie } = checkeditSlice.actions
 export default checkeditSlice.reducer

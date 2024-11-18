@@ -1,6 +1,5 @@
 declare type ExerciseProps = {
   exerciseNum: number
-  workoutExercise: WorkoutExercise
 }
 
 declare type SeriesProps = {
@@ -9,10 +8,7 @@ declare type SeriesProps = {
 
 declare type SerieProps = {
   serienum: number
-  name: string
-  exercise: ExerciseSerie
-  bodyweight: boolean
-  unit?: string
+  exerciseName: string
 }
 
 declare type ExerciseInfoProps = {
