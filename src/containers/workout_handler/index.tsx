@@ -84,7 +84,6 @@ export const WorkoutHandler = () => {
             <Exercise
               key={`${w.exercise.name}${dailyworkout.name}`}
               exerciseNum={i}
-              workoutExercise={w}
             />
           )
         })}

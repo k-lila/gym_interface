@@ -3,17 +3,46 @@ import check from '../../assets/check_serie.png'
 import uncheck from '../../assets/uncheck_serie.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
-import { setCheckSerie } from '../../store/reducers/checkedit'
+import { setCheckEditSerie } from '../../store/reducers/checkedit'
 
 export const Serie = ({ ...props }: SerieProps) => {
   const dispatch = useDispatch()
+
+  const exercises = useSelector(
+    (state: RootReducer) => state.preferences.dailyworkout?.exercises
+  )
   const ontraining = useSelector((state: RootReducer) => state.logs.ontraining)
   const seriesLog = useSelector((state: RootReducer) => state.logs.log.series)
-  const exerciseLogs = seriesLog?.filter((f) => f.exercise == props.name)
+
+  const exercise = exercises
+    ? exercises.find((f) => f.exercise.name == props.exerciseName)
+    : null
+  const exerciseLogs = seriesLog?.filter(
+    (f) => f.exercise == exercise?.exercise.name
+  )
   const exerciseChecks = exerciseLogs ? exerciseLogs.length : 0
+  const serie = exercise ? exercise.series[props.serienum - 1] : null
+
+  const reps = ontraining
+    ? exerciseChecks > props.serienum - 1 && exerciseLogs
+      ? [exerciseLogs[props.serienum - 1].repetitions]
+      : serie?.repetitions
+    : serie?.repetitions
+  const weight = ontraining
+    ? exerciseChecks > props.serienum - 1 && exerciseLogs
+      ? [exerciseLogs[props.serienum - 1].weight]
+      : serie?.weight
+    : `${serie && serie.weight ? serie.weight : ''}`
 
   const handleCheck = () => {
-    dispatch(setCheckSerie({ name: props.name, num: props.serienum }))
+    if (exercise) {
+      dispatch(
+        setCheckEditSerie({
+          name: exercise?.exercise.name,
+          num: props.serienum
+        })
+      )
+    }
   }
 
   return (
@@ -28,20 +57,16 @@ export const Serie = ({ ...props }: SerieProps) => {
         {props.serienum}
       </span>
       <span className="col-4 d-flex align-items-center justify-content-center">
-        {ontraining && exerciseLogs && exerciseLogs.length >= props.serienum
-          ? `${exerciseLogs[props.serienum - 1].repetitions}x`
-          : props.exercise.repetitions.length === 1
-          ? `${props.exercise.repetitions[0]}x`
-          : `${props.exercise.repetitions[0]}-${props.exercise.repetitions[1]}x`}
+        {reps
+          ? reps.length == 1
+            ? `${reps[0]}x`
+            : `${reps[0]}-${reps[1]}x`
+          : null}
       </span>
       <span className="col-5 d-flex align-items-center justify-content-center">
-        {props.bodyweight
-          ? 'próprio peso'
-          : props.exercise.weight
-          ? ontraining && exerciseLogs && exerciseLogs.length >= props.serienum
-            ? `${exerciseLogs[props.serienum - 1].weight}${props.unit}`
-            : `${props.exercise.weight}${props.unit}`
-          : '-'}
+        {exercise && exercise.bodyweight
+          ? 'próprio corpo'
+          : `${weight}${exercise && exercise.unit ? exercise.unit : ''}`}
       </span>
       {ontraining ? (
         exerciseChecks == props.serienum - 1 ? (

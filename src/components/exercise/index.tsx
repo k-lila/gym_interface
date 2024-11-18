@@ -3,18 +3,36 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import info from '../../assets/info.png'
 import { Serie } from '../serie'
-import { setCheckSerie } from '../../store/reducers/checkedit'
+import { setCheckEditSerie } from '../../store/reducers/checkedit'
 import { ExerciseInfo } from '../exercise_info'
 
 export const Exercise = ({ ...props }: ExerciseProps) => {
   const dispatch = useDispatch()
-  const exerciseName = props.workoutExercise.exercise.name
+  const exercises = useSelector(
+    (state: RootReducer) => state.preferences.dailyworkout?.exercises
+  )
+  const exercise = exercises ? exercises[props.exerciseNum] : null
   const ontraining = useSelector((state: RootReducer) => state.logs.ontraining)
-  const seriesLog = useSelector(
-    (state: RootReducer) => state.logs.log.series
-  )?.filter((f) => f.exercise == exerciseName)
+  const logs = useSelector((state: RootReducer) => state.logs)
+  const seriesLog =
+    logs.log.series && exercises
+      ? logs.log.series.filter(
+          (f) => f.exercise == exercises[props.exerciseNum].exercise.name
+        )
+      : null
   const exerciseChecks = seriesLog ? seriesLog.length : 0
-  const extraSeries = seriesLog?.slice(props.workoutExercise.series.length)
+  const extraSeries = seriesLog?.slice(exercise?.series.length)
+
+  const handleCheck = () => {
+    if (exercise) {
+      dispatch(
+        setCheckEditSerie({
+          name: exercise?.exercise.name,
+          num: exercise.series.length
+        })
+      )
+    }
+  }
 
   return (
     <ExerciseStyled>
@@ -27,9 +45,8 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
         aria-controls={`exerciseCollapse${props.exerciseNum}`}
       >
         <b>{props.exerciseNum + 1}</b>
-        <b className="ms-2">{props.workoutExercise.exercise.name}</b>
+        <b className="ms-2">{exercise?.exercise.name}</b>
       </button>
-
       <div
         className="collapse container border border-dark border-2 rounded"
         id={`exerciseCollapse${props.exerciseNum}`}
@@ -40,62 +57,44 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
           <div className="col-5 text-center">carga</div>
           <div className="col-2" style={{ width: '2em' }} />
         </div>
-        {props.workoutExercise.serietype == 'normal' && !ontraining ? (
-          <Serie
-            name={props.workoutExercise.exercise.name}
-            serienum={props.workoutExercise.series.length}
-            bodyweight={props.workoutExercise.bodyweight ? true : false}
-            unit={props.workoutExercise.unit}
-            exercise={props.workoutExercise.series[0]}
-          />
-        ) : (
-          props.workoutExercise.series.map((serie, i) => {
-            return (
-              <Serie
-                name={props.workoutExercise.exercise.name}
-                serienum={i + 1}
-                bodyweight={props.workoutExercise.bodyweight ? true : false}
-                unit={props.workoutExercise.unit}
-                exercise={serie}
-                key={i}
-              />
-            )
-          })
-        )}
-
-        {extraSeries
+        {exercise ? (
+          exercise.serietype == 'normal' && !ontraining ? (
+            <Serie
+              exerciseName={exercise.exercise.name}
+              serienum={exercise.series.length}
+            />
+          ) : (
+            exercise.series.map((serie, i) => {
+              return (
+                <Serie
+                  key={i}
+                  serienum={i + 1}
+                  exerciseName={exercise.exercise.name}
+                />
+              )
+            })
+          )
+        ) : null}
+        {exercise && extraSeries
           ? extraSeries.map((extra, i) => {
               return (
                 <Serie
                   key={i}
-                  name={props.workoutExercise.exercise.name}
-                  serienum={props.workoutExercise.series.length + i + 1}
-                  bodyweight={props.workoutExercise.bodyweight ? true : false}
-                  unit={props.workoutExercise.unit}
-                  exercise={{
-                    repetitions: [extra.repetitions],
-                    weight: extra.weight
-                  }}
+                  serienum={exercise.series.length + i + 1}
+                  exerciseName={exercise.exercise.name}
                 />
               )
             })
           : null}
-
         <div className="d-flex justify-content-between align-items-center p-1">
-          {props.workoutExercise.series.length <= exerciseChecks &&
+          {exercise &&
+          exercise.series.length <= exerciseChecks &&
           ontraining ? (
             <button
               type="button"
               data-bs-toggle="modal"
               data-bs-target="#modalCheck"
-              onClick={() =>
-                dispatch(
-                  setCheckSerie({
-                    name: props.workoutExercise.exercise.name,
-                    num: props.workoutExercise.series.length
-                  })
-                )
-              }
+              onClick={handleCheck}
               className="btn btn-outline-danger px-2 py-1"
             >
               + series
@@ -114,13 +113,12 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
             <img src={info} alt="info" />
           </button>
         </div>
-
         <div
           className="collapse border-top border-secondary"
           id={`exerciseCollapse${props.exerciseNum}info`}
         >
           <div className="d-flex align-items-center justify-content-center flex-column mt-1">
-            <ExerciseInfo exercise={props.workoutExercise} />
+            {exercise ? <ExerciseInfo exercise={exercise} /> : null}
           </div>
         </div>
       </div>

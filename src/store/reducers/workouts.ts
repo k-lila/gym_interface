@@ -16,37 +16,16 @@ const workoutsSlice = createSlice({
     setWorkouts: (state, action: PayloadAction<WorkoutsState>) => {
       state = action.payload
     },
-
-    editSerie: (
-      state,
-      action: PayloadAction<{
-        workoutName: string
-        dailyName: string
-        exerciseName: string
-        editedSeries: Array<ExerciseSerie>
-      }>
-    ) => {
-      const workout = state.user_workouts.find(
-        (workout) => workout.name === action.payload.workoutName
-      )
-
-      if (workout) {
-        const daily = workout.workouts.find(
-          (daily) => daily.name === action.payload.dailyName
-        )
-
-        if (daily) {
-          const exercise = daily.exercises.find(
-            (ex) => ex.exercise.name === action.payload.exerciseName
-          )
-
-          if (exercise) {
-            exercise.series = [...action.payload.editedSeries]
-          }
+    editWorkout: (state, action: PayloadAction<Workout>) => {
+      state.user_workouts = state.user_workouts.map((uw) => {
+        if (uw.name == action.payload.name) {
+          return action.payload
+        } else {
+          return uw
         }
-      }
+      })
     }
   }
 })
-export const { setWorkouts, editSerie } = workoutsSlice.actions
+export const { setWorkouts, editWorkout } = workoutsSlice.actions
 export default workoutsSlice.reducer
