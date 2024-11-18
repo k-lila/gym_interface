@@ -1,12 +1,5 @@
-import { Acess_Training } from '../containers/acess_training'
+import { HomeHandler } from '../containers/home'
 
 export const Home = () => {
-  return (
-    <div
-      style={{ height: '100svh' }}
-      className="container-fluid d-flex justify-content-center align-items-center bg-secondary"
-    >
-      <Acess_Training />
-    </div>
-  )
+  return <HomeHandler />
 }
