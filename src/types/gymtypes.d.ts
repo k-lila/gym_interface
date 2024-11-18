@@ -18,7 +18,7 @@ declare type WorkoutExercise = {
   serietype: 'normal' | 'custom'
   series: Array<ExerciseSerie>
   rest: number
-  unit?: string
+  unit?: 'kg' | 'seg'
   grip?: 'supinada' | 'neutra' | 'pronada'
   bodyweight?: boolean
   obs?: string
