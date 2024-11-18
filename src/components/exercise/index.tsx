@@ -22,6 +22,8 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
       : null
   const exerciseChecks = seriesLog ? seriesLog.length : 0
   const extraSeries = seriesLog?.slice(exercise?.series.length)
+  const teste =
+    exercise && exerciseChecks >= exercise.series.length ? 'bg-checked' : ''
 
   const handleCheck = () => {
     if (exercise) {
@@ -37,7 +39,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
   return (
     <ExerciseStyled>
       <button
-        className="btn border-dark w-100 d-flex justify-content-start align-items-center border-2"
+        className={`btn border-dark w-100 d-flex justify-content-start align-items-center border-2 ${teste}`}
         type="button"
         data-bs-toggle="collapse"
         data-bs-target={`#exerciseCollapse${props.exerciseNum}`}

@@ -10,7 +10,8 @@ const initialState: WorkoutLogState = {
   ontraining: false,
   finishtime: '',
   log: {
-    workout: undefined,
+    workoutname: undefined,
+    dailyworkout: undefined,
     start: undefined,
     end: undefined,
     series: undefined
@@ -21,9 +22,13 @@ const logSlice = createSlice({
   name: 'log_redux',
   initialState,
   reducers: {
-    setSetupLog: (state, action: PayloadAction<DailyWorkout>) => {
+    setSetupLog: (
+      state,
+      action: PayloadAction<{ name: string; daily: DailyWorkout }>
+    ) => {
       state.ontraining = true
-      state.log.workout = action.payload
+      state.log.workoutname = action.payload.name
+      state.log.dailyworkout = action.payload.daily
     },
     setStart: (state, action: PayloadAction<string>) => {
       state.log.start = action.payload

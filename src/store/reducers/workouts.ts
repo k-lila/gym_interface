@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { musc, musc2 } from '../../constants/workout_exemple'
+import { musc2 } from '../../constants/workout_exemple2'
+import { musc } from '../../constants/workout_exemple1'
 
 type WorkoutsState = {
   user_workouts: Array<Workout>
@@ -17,11 +18,11 @@ const workoutsSlice = createSlice({
       state = action.payload
     },
     editWorkout: (state, action: PayloadAction<Workout>) => {
-      state.user_workouts = state.user_workouts.map((uw) => {
-        if (uw.name == action.payload.name) {
+      state.user_workouts = state.user_workouts.map((userworkout) => {
+        if (userworkout.name == action.payload.name) {
           return action.payload
         } else {
-          return uw
+          return userworkout
         }
       })
     }

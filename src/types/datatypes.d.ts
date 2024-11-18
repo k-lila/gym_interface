@@ -6,7 +6,8 @@ declare type SerieLog = {
 }
 
 declare type WorkoutLog = {
-  workout: DailyWorkout | undefined
+  workoutname: string | undefined
+  dailyworkout: DailyWorkout | undefined
   start: string | undefined
   end: string | undefined
   series: Array<SerieLog> | undefined

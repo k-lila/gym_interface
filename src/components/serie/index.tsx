@@ -66,7 +66,9 @@ export const Serie = ({ ...props }: SerieProps) => {
       <span className="col-5 d-flex align-items-center justify-content-center">
         {exercise && exercise.bodyweight
           ? 'próprio corpo'
-          : `${weight}${exercise && exercise.unit ? exercise.unit : ''}`}
+          : `${weight ? weight : ''}${
+              weight && exercise && exercise.unit ? exercise.unit : '-'
+            }`}
       </span>
       {ontraining ? (
         exerciseChecks == props.serienum - 1 ? (

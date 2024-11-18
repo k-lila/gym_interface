@@ -20,13 +20,13 @@ export const ModalWorkout = () => {
   const log = useSelector((state: RootReducer) => state.logs)
   const onTraining = useSelector((state: RootReducer) => state.logs.ontraining)
   let totalSeries = 0
-  log.log.workout?.exercises.map((ex) => {
+  log.log.dailyworkout?.exercises.map((ex) => {
     totalSeries = totalSeries + ex.series.length
   })
   const handleStart = () => {
     const now = new Date().toUTCString()
-    if (daily) {
-      dispatch(setSetupLog(daily))
+    if (daily && workout) {
+      dispatch(setSetupLog({ name: workout.name, daily: daily }))
       dispatch(setStart(now))
     }
   }

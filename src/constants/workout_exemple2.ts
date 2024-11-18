@@ -579,12 +579,8 @@ const daily_C: DailyWorkout = {
   ]
 }
 
-export const musc: Workout = {
-  name: 'exemplo 1',
-  workouts: [daily_A]
-}
-
 export const musc2: Workout = {
   name: 'exemplo 2',
+  obs: 'hipertrofia',
   workouts: [daily_A, daily_B, daily_C]
 }
