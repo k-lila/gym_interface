@@ -1,6 +1,4 @@
-import edit from '../../assets/edit.png'
 import check from '../../assets/check_serie.png'
-import uncheck from '../../assets/uncheck_serie.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { setCheckEditSerie } from '../../store/reducers/checkedit'
@@ -65,7 +63,7 @@ export const Serie = ({ ...props }: SerieProps) => {
       </span>
       <span className="col-5 d-flex align-items-center justify-content-center">
         {exercise && exercise.bodyweight
-          ? 'próprio corpo'
+          ? '-'
           : `${weight ? weight : ''}${
               weight && exercise && exercise.unit ? exercise.unit : '-'
             }`}
@@ -76,27 +74,36 @@ export const Serie = ({ ...props }: SerieProps) => {
             data-bs-toggle="modal"
             data-bs-target="#modalCheck"
             onClick={handleCheck}
-            className="btn col-2 edit-btn"
+            className="btn col-1 p-0 edit-btn"
           >
-            <img src={uncheck} alt="edit" />
+            <i
+              style={{ fontSize: '0.85em', color: 'rgba(0, 100, 0)' }}
+              className="bi bi-circle"
+            ></i>
           </button>
         ) : exerciseChecks > props.serienum - 1 ? (
-          <button className="btn col-2 edit-btn">
-            <img src={check} alt="check" />
+          <button className="btn col-1 p-0 edit-btn">
+            <i
+              style={{ fontSize: '0.85em', color: 'rgba(0, 100, 0)' }}
+              className="bi bi-check-circle"
+            ></i>
           </button>
         ) : (
-          <button className="btn col-2 edit-btn opacity-0">
-            <img src={uncheck} alt="check" />
+          <button className="btn col-1 p-0 edit-btn opacity-0">
+            <i
+              style={{ fontSize: '0.85em', color: 'rgba(0, 100, 0)' }}
+              className="bi bi-circle"
+            ></i>
           </button>
         )
       ) : (
         <button
           data-bs-toggle="modal"
           data-bs-target="#modalEdit"
-          className="btn col-2 edit-btn"
+          className="btn col-1 p-0"
           onClick={handleCheck}
         >
-          <img src={edit} alt="edit" />
+          <i className="bi bi-pencil"></i>
         </button>
       )}
     </div>

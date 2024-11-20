@@ -270,7 +270,7 @@ export const ModalEdit = () => {
               data-bs-dismiss="modal"
               onClick={handleSave}
             >
-              Salvar
+              <i className="bi bi-check-lg"></i>
             </button>
           </div>
         </div>
