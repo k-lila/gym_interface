@@ -3,6 +3,7 @@ import { GlobalStyle } from './styles/styles'
 import { Paths } from './routes'
 import { Provider } from 'react-redux'
 import store from './store'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
 function App() {
   return (

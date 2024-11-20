@@ -8,7 +8,6 @@ import {
 } from '../../store/reducers/preferences'
 import { ModalWorkout } from '../../components/modal_startend'
 import { ModalCheck } from '../../components/modal_check'
-import { RestCounter } from '../../components/rest_counter'
 import { ProgressBar } from '../../components/progress_bar'
 import { setFinish } from '../../store/reducers/workoutlog'
 import { ModalEdit } from '../../components/modal_edit'
@@ -28,9 +27,6 @@ export const WorkoutHandler = () => {
     (state: RootReducer) => state.preferences.dailyworkout
   )
   const logs = useSelector((state: RootReducer) => state.logs)
-  const rest_counter_key = useSelector(
-    (state: RootReducer) => state.logs.log.series
-  )?.length
 
   const handleFinish = () => {
     const now = new Date().toUTCString()
@@ -55,20 +51,56 @@ export const WorkoutHandler = () => {
       ? true
       : false
 
-  const headerBg = onTrainingPage ? 'rgba(70, 70, 85)' : '#212529'
   return (
     <main>
-      <header
-        style={{ backgroundColor: headerBg, transition: 'all 1s' }}
-        className="sticky-top d-flex p-2 justify-content-between"
-      >
-        <button className="btn btn-light" onClick={() => navigate('/')}>
-          voltar
+      {logs.ontraining ? <ProgressBar /> : null}
+      <div className="p-2 mb-5">
+        {dailyworkout?.exercises.map((w, i) => {
+          return (
+            <Exercise
+              key={`${w.exercise.name}${dailyworkout.name}`}
+              exerciseNum={i}
+            />
+          )
+        })}
+      </div>
+      <footer className="bg-dark d-flex justify-content-between p-2 position-fixed bottom-0 w-100">
+        <button
+          className="btn btn-primary border-2"
+          onClick={() => navigate('/')}
+        >
+          <i className="bi bi-caret-left-fill"></i>
         </button>
-        <div className="dropdown">
+        {logs.ontraining ? (
+          <>
+            {onTrainingPage ? (
+              <button
+                className="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#confirmModal"
+                onClick={handleFinish}
+              >
+                finalizar
+              </button>
+            ) : (
+              <button className="btn btn-light" onClick={handleBackTraining}>
+                treino
+              </button>
+            )}
+          </>
+        ) : (
+          <button
+            className="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#confirmModal"
+          >
+            Iniciar treino
+          </button>
+        )}
+        <div className="dropup">
           <button
             type="button"
-            className="btn btn-light dropdown-toggle"
+            className="btn btn-primary border-2 dropdown-toggle"
             data-bs-toggle="dropdown"
             aria-expanded="false"
             data-bs-auto-close="outside"
@@ -107,53 +139,6 @@ export const WorkoutHandler = () => {
             </div>
           </div>
         </div>
-      </header>
-      {logs.ontraining ? <ProgressBar /> : null}
-      <div className="p-2 mb-5">
-        {dailyworkout?.exercises.map((w, i) => {
-          return (
-            <Exercise
-              key={`${w.exercise.name}${dailyworkout.name}`}
-              exerciseNum={i}
-            />
-          )
-        })}
-      </div>
-      <footer
-        style={{ backgroundColor: headerBg, transition: 'all 1s' }}
-        className={`w-100 p-2 d-flex ${
-          rest_counter_key
-            ? 'justify-content-between'
-            : 'justify-content-center'
-        } position-fixed bottom-0`}
-      >
-        {logs.ontraining ? (
-          <>
-            {onTrainingPage ? (
-              <button
-                className="btn btn-light"
-                data-bs-toggle="modal"
-                data-bs-target="#confirmModal"
-                onClick={handleFinish}
-              >
-                finalizar
-              </button>
-            ) : (
-              <button className="btn btn-light" onClick={handleBackTraining}>
-                treino
-              </button>
-            )}
-            {rest_counter_key ? <RestCounter key={rest_counter_key} /> : null}
-          </>
-        ) : (
-          <button
-            className="btn btn-light"
-            data-bs-toggle="modal"
-            data-bs-target="#confirmModal"
-          >
-            Iniciar treino
-          </button>
-        )}
       </footer>
       {dailyworkout ? <ModalWorkout /> : null}
       <ModalCheck />

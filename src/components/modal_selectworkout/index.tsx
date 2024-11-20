@@ -110,7 +110,7 @@ export const SelectWorkout = () => {
               onClick={() => navigate('/workout')}
               disabled={defaultworkout ? false : true}
             >
-              Confirma
+              <i className="bi bi-check-lg"></i>
             </button>
           </div>
         </div>

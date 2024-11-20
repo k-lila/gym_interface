@@ -1,7 +1,6 @@
 import { ExerciseStyled } from './styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
-import info from '../../assets/info.png'
 import { Serie } from '../serie'
 import { setCheckEditSerie } from '../../store/reducers/checkedit'
 import { ExerciseInfo } from '../exercise_info'
@@ -105,14 +104,14 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
             <div style={{ opacity: 0 }}>+ series</div>
           )}
           <button
-            className="btn-info"
+            className="btn p-0 m-0 d-flex"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target={`#exerciseCollapse${props.exerciseNum}info`}
             aria-expanded="false"
             aria-controls={`exerciseCollapse${props.exerciseNum}info`}
           >
-            <img src={info} alt="info" />
+            <i className="bi bi-info-circle fs-3"></i>
           </button>
         </div>
         <div
