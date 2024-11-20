@@ -2,6 +2,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { useEffect, useState } from 'react'
 import { addSerie } from '../../store/reducers/workoutlog'
+import {
+  refreshRestCounter,
+  setRestTime
+} from '../../store/reducers/restcounter'
 
 export const ModalCheck = () => {
   const dispatch = useDispatch()
@@ -39,6 +43,8 @@ export const ModalCheck = () => {
         weight: currentWeight
       }
       dispatch(addSerie(serieLog))
+      dispatch(setRestTime(exercise.rest))
+      dispatch(refreshRestCounter(true))
     }
   }
   return (

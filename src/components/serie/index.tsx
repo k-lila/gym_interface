@@ -1,4 +1,3 @@
-import check from '../../assets/check_serie.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { setCheckEditSerie } from '../../store/reducers/checkedit'

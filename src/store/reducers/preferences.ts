@@ -3,13 +3,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 type PreferencesState = {
   defaultworkout: Workout | undefined
   dailyworkout: DailyWorkout | undefined
-  restshow: boolean
 }
 
 const initialState: PreferencesState = {
   defaultworkout: undefined,
-  dailyworkout: undefined,
-  restshow: true
+  dailyworkout: undefined
 }
 
 const preferencesSlice = createSlice({
@@ -24,13 +22,9 @@ const preferencesSlice = createSlice({
       action: PayloadAction<DailyWorkout | undefined>
     ) => {
       state.dailyworkout = action.payload
-    },
-    setShowRest: (state, action: PayloadAction<boolean>) => {
-      state.restshow = action.payload
     }
   }
 })
 
-export const { setDefaultWorkout, setDailyWorkout, setShowRest } =
-  preferencesSlice.actions
+export const { setDefaultWorkout, setDailyWorkout } = preferencesSlice.actions
 export default preferencesSlice.reducer
