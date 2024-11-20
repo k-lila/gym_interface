@@ -77,7 +77,7 @@ export const Serie = ({ ...props }: SerieProps) => {
             className="btn col-1 p-0 edit-btn"
           >
             <i
-              style={{ fontSize: '0.85em', color: 'rgba(0, 100, 0)' }}
+              style={{ fontSize: '0.85em', color: 'rgba(100, 100, 100)' }}
               className="bi bi-circle"
             ></i>
           </button>
@@ -91,7 +91,7 @@ export const Serie = ({ ...props }: SerieProps) => {
         ) : (
           <button className="btn col-1 p-0 edit-btn opacity-0">
             <i
-              style={{ fontSize: '0.85em', color: 'rgba(0, 100, 0)' }}
+              style={{ fontSize: '0.85em', color: 'rgba(100, 100, 100)' }}
               className="bi bi-circle"
             ></i>
           </button>

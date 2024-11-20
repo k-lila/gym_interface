@@ -119,7 +119,8 @@ export const ModalWorkout = () => {
                 data-bs-dismiss="modal"
                 onClick={handleEnd}
               >
-                Confirma
+                <span>confirmar</span>
+                <i className="bi bi-check-lg ms-2"></i>
               </button>
             ) : (
               <button
@@ -128,7 +129,8 @@ export const ModalWorkout = () => {
                 data-bs-dismiss="modal"
                 onClick={handleStart}
               >
-                Confirma
+                <span>confirmar</span>
+                <i className="bi bi-check-lg ms-2"></i>
               </button>
             )}
           </div>

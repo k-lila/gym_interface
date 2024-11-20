@@ -11,6 +11,7 @@ import { ModalCheck } from '../../components/modal_check'
 import { ProgressBar } from '../../components/progress_bar'
 import { setFinish } from '../../store/reducers/workoutlog'
 import { ModalEdit } from '../../components/modal_edit'
+import { RestCounter } from '../../components/rest_counter'
 
 export const WorkoutHandler = () => {
   const navigate = useNavigate()
@@ -66,7 +67,7 @@ export const WorkoutHandler = () => {
       </div>
       <footer className="bg-dark d-flex justify-content-between p-2 position-fixed bottom-0 w-100">
         <button
-          className="btn btn-primary border-2"
+          className="btn bg-light btn-outline-primary border-2"
           onClick={() => navigate('/')}
         >
           <i className="bi bi-caret-left-fill"></i>
@@ -75,32 +76,38 @@ export const WorkoutHandler = () => {
           <>
             {onTrainingPage ? (
               <button
-                className="btn btn-primary"
+                className="btn bg-light btn-outline-danger"
                 data-bs-toggle="modal"
                 data-bs-target="#confirmModal"
                 onClick={handleFinish}
               >
-                finalizar
+                <i className="bi bi-stop-fill"></i>
+                <span>finalizar</span>
               </button>
             ) : (
-              <button className="btn btn-light" onClick={handleBackTraining}>
+              <button
+                className="btn bg-light btn-outline-primary"
+                onClick={handleBackTraining}
+              >
                 treino
               </button>
             )}
           </>
         ) : (
           <button
-            className="btn btn-primary"
+            className="btn bg-light btn-outline-success"
             data-bs-toggle="modal"
             data-bs-target="#confirmModal"
           >
-            Iniciar treino
+            <i className="bi bi-play-fill"></i>
+            <span>iniciar</span>
           </button>
         )}
+        {logs.ontraining ? <RestCounter /> : null}
         <div className="dropup">
           <button
             type="button"
-            className="btn btn-primary border-2 dropdown-toggle"
+            className="btn bg-light btn-outline-primary border-2 dropdown-toggle"
             data-bs-toggle="dropdown"
             aria-expanded="false"
             data-bs-auto-close="outside"

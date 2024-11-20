@@ -152,7 +152,8 @@ export const ModalCheck = () => {
               data-bs-dismiss="modal"
               onClick={handleConfirm}
             >
-              <i className="bi bi-check-lg"></i>
+              <span>confirmar</span>
+              <i className="bi bi-check-lg ms-2"></i>
             </button>
           </div>
         </div>

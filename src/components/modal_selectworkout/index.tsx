@@ -74,7 +74,7 @@ export const SelectWorkout = () => {
                 })}
               </select>
             </form>
-            <div className="d-flex overflow-x-auto m-2 border-bottom border-secondary">
+            <div className="d-flex overflow-x-auto m-2">
               {defaultworkout
                 ? defaultworkout.workouts.map((dw, i) => {
                     if (dw.name == dailyworkout?.name) {
@@ -105,12 +105,15 @@ export const SelectWorkout = () => {
           <div className="modal-footer">
             <button
               type="button"
-              className="btn btn-outline-success"
+              className={`btn ${
+                defaultworkout ? 'btn-outline-success' : 'btn-outline-secondary'
+              }`}
               data-bs-dismiss="modal"
               onClick={() => navigate('/workout')}
               disabled={defaultworkout ? false : true}
             >
-              <i className="bi bi-check-lg"></i>
+              <span>confirmar</span>
+              <i className="bi bi-check-lg ms-2"></i>
             </button>
           </div>
         </div>

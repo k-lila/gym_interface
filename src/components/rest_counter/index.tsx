@@ -56,17 +56,20 @@ export const RestCounter = () => {
 
   return (
     <div
+      style={{ width: '4em' }}
       className={`${
         rest ? 'bg-danger' : 'bg-success'
       } d-flex align-items-center justify-content-center rounded px-2`}
       onClick={() => dispatch(setShowRest(!show))}
     >
       <span className="text-light">
-        {show
-          ? `${minuts > 9 ? '' : '0'}${minuts}:${
-              seconds > 9 ? '' : '0'
-            }${seconds}`
-          : 'Descanso'}
+        {show ? (
+          `${minuts > 9 ? '' : '0'}${minuts}:${
+            seconds > 9 ? '' : '0'
+          }${seconds}`
+        ) : (
+          <i className="bi bi-stopwatch"></i>
+        )}
       </span>
     </div>
   )
