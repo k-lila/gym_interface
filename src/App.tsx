@@ -4,7 +4,6 @@ import { Paths } from './routes'
 import { Provider } from 'react-redux'
 import store from './store'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import { Timer } from './components/timer'
 
 function App() {
   return (
@@ -13,7 +12,6 @@ function App() {
         <GlobalStyle />
         <Paths />
       </BrowserRouter>
-      <Timer />
     </Provider>
   )
 }

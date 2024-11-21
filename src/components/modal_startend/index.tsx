@@ -8,7 +8,6 @@ import {
   setStart
 } from '../../store/reducers/workoutlog'
 import { useEffect } from 'react'
-import { toggleRestCounter } from '../../store/reducers/restcounter'
 
 export const ModalWorkout = () => {
   const dispatch = useDispatch()
@@ -29,13 +28,13 @@ export const ModalWorkout = () => {
     if (daily && workout) {
       dispatch(setSetupLog({ name: workout.name, daily: daily }))
       dispatch(setStart(now))
-      dispatch(toggleRestCounter(true))
+      // dispatch(toggleRestCounter(true))
     }
   }
   const handleEnd = () => {
     const now = new Date().toUTCString()
     dispatch(setEnd(now))
-    dispatch(toggleRestCounter(false))
+    // dispatch(toggleRestCounter(false))
   }
 
   const getTime = () => {

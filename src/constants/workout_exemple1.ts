@@ -11,7 +11,7 @@ const daily_A: DailyWorkout = {
   exercises: [
     {
       exercise: puxada_alta,
-      rest: 60,
+      rest: 10,
       serietype: 'normal',
       unit: 'kg',
       series: [
