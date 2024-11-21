@@ -25,7 +25,7 @@ export const RestCounter = () => {
       : undefined
     if (logs.log.series) {
       if (logs.log.series.length != keyNum) {
-        setRest(logs.log.series.length == keyNum ? true : false)
+        setRest(false)
         setKeyNum(logs.log.series.length)
       }
     }
@@ -43,7 +43,7 @@ export const RestCounter = () => {
             (now.getTime() - lastSerieDate.getTime()) / 1000
           )
           const restTime = lastSerieRest - lastSerieSeconds
-          if (restTime == 0) {
+          if (restTime < 0) {
             setRest(true)
           }
           if (restTime > 0) {
