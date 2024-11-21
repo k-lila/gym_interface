@@ -3,6 +3,7 @@ declare type SerieLog = {
   datetime: string
   repetitions: number
   weight: number
+  rest: number
 }
 
 declare type WorkoutLog = {
