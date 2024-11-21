@@ -14,20 +14,14 @@ export const RestCounter = () => {
 
   const logs = useSelector((state: RootReducer) => state.logs)
 
-  const lastSerieRest = logs.log.series
-    ? logs.log.series[logs.log.series.length - 1].rest
-    : undefined
-
   useEffect(() => {
     const start = logs.log.start ? new Date(logs.log.start) : undefined
-    const lastSerieDate = logs.log.series
-      ? new Date(logs.log.series[logs.log.series.length - 1].datetime)
-      : undefined
-    if (logs.log.series) {
-      if (logs.log.series.length != keyNum) {
-        setRest(false)
-        setKeyNum(logs.log.series.length)
-      }
+    const lastSerie = logs.log.series?.at(-1)
+    const lastSerieDate = lastSerie ? new Date(lastSerie.datetime) : undefined
+    const lastSerieRest = lastSerie?.rest || 0
+    if (logs.log.series && logs.log.series.length != keyNum) {
+      setRest(false)
+      setKeyNum(logs.log.series.length)
     }
     if (logs.ontraining && start) {
       const timer = setInterval(() => {
@@ -35,29 +29,27 @@ export const RestCounter = () => {
         const totalSeconds = Math.floor(
           (now.getTime() - start.getTime()) / 1000
         )
-        setHour(Math.floor(totalSeconds / (60 * 60)))
+        setHour(Math.floor(totalSeconds / 3600))
         setMinutes(Math.floor(totalSeconds / 60) % 60)
         setSeconds(totalSeconds % 60)
-        if (lastSerieDate && lastSerieRest) {
+        if (lastSerieDate) {
           const lastSerieSeconds = Math.floor(
             (now.getTime() - lastSerieDate.getTime()) / 1000
           )
           const restTime = lastSerieRest - lastSerieSeconds
-          if (restTime < 0) {
-            setRest(true)
-          }
           if (restTime > 0) {
             setMinutesRest(Math.floor(restTime / 60))
             setSecondsRest(Math.floor(restTime % 60))
           } else {
             setMinutesRest(Math.floor((lastSerieSeconds - lastSerieRest) / 60))
             setSecondsRest(Math.floor((lastSerieSeconds - lastSerieRest) % 60))
+            setRest(true)
           }
         }
-      }, 1000)
+      }, 500)
       return () => clearInterval(timer)
     }
-  }, [logs, seconds, minutes, hour, lastSerieRest, keyNum])
+  }, [logs, keyNum])
 
   return (
     <div
