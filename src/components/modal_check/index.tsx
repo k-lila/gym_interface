@@ -40,8 +40,6 @@ export const ModalCheck = () => {
         rest: exercise.rest
       }
       dispatch(addSerie(serieLog))
-      // dispatch(setRestTime(exercise.rest))
-      // dispatch(refreshRestCounter(true))
     }
   }
   return (

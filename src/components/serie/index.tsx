@@ -70,25 +70,32 @@ export const Serie = ({ ...props }: SerieProps) => {
       {ontraining ? (
         exerciseChecks == props.serienum - 1 ? (
           <button
+            style={{ border: 'none' }}
             data-bs-toggle="modal"
             data-bs-target="#modalCheck"
             onClick={handleCheck}
             className="btn col-1 p-0 edit-btn"
           >
             <i
-              style={{ fontSize: '0.85em', color: 'rgba(100, 100, 100)' }}
+              style={{
+                fontSize: '0.85em',
+                color: 'rgba(100, 100, 100)'
+              }}
               className="bi bi-circle"
             ></i>
           </button>
         ) : exerciseChecks > props.serienum - 1 ? (
-          <button className="btn col-1 p-0 edit-btn">
+          <button style={{ border: 'none' }} className="btn col-1 p-0 edit-btn">
             <i
               style={{ fontSize: '0.85em', color: 'rgba(0, 100, 0)' }}
               className="bi bi-check-circle"
             ></i>
           </button>
         ) : (
-          <button className="btn col-1 p-0 edit-btn opacity-0">
+          <button
+            style={{ border: 'none' }}
+            className="btn col-1 p-0 edit-btn opacity-0"
+          >
             <i
               style={{ fontSize: '0.85em', color: 'rgba(100, 100, 100)' }}
               className="bi bi-circle"
@@ -97,6 +104,7 @@ export const Serie = ({ ...props }: SerieProps) => {
         )
       ) : (
         <button
+          style={{ border: 'none' }}
           data-bs-toggle="modal"
           data-bs-target="#modalEdit"
           className="btn col-1 p-0"

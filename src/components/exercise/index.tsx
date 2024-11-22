@@ -104,6 +104,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
             <div style={{ opacity: 0 }}>+ series</div>
           )}
           <button
+            style={{ border: 'none' }}
             className="btn p-0 m-0 d-flex"
             type="button"
             data-bs-toggle="collapse"

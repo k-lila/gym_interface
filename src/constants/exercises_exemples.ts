@@ -123,3 +123,13 @@ export const hiperextensao_lombar: Exercise = {
 }
 
 // ========================================================================================== //
+
+export const barra_fixa: Exercise = {
+  name: 'barra fixa',
+  musclegroup: [getMuscleGroup('costas')]
+}
+
+export const apoio: Exercise = {
+  name: 'apoio',
+  musclegroup: [getMuscleGroup('peito')]
+}

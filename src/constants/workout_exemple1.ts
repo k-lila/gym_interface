@@ -1,55 +1,57 @@
 import {
   agachamento,
-  levantamento_terra,
-  puxada_alta,
-  supino
+  apoio,
+  barra_fixa,
+  levantamento_terra
 } from './exercises_exemples'
 
 const daily_A: DailyWorkout = {
   name: 'A',
-  obs: 'full-body',
+  obs: 'exemplo',
   exercises: [
     {
-      exercise: puxada_alta,
-      rest: 10,
+      exercise: barra_fixa,
+      rest: 60,
       serietype: 'normal',
-      unit: 'kg',
+      bodyweight: true,
+      grip: 'pronada',
+      obs: 'asd hasdhuapsduha psduhapsid uhapsi duaspi duhapsidu hapsiudhasi udhaisud hapsdu hapsiudha',
       series: [
         {
-          repetitions: [10, 12],
-          weight: 0
+          repetitions: [5, 10]
         },
         {
-          repetitions: [10, 12],
-          weight: 0
+          repetitions: [5, 10]
         },
         {
-          repetitions: [10, 12],
-          weight: 0
+          repetitions: [5, 10]
         },
         {
-          repetitions: [10, 12],
-          weight: 0
+          repetitions: [5, 10]
+        },
+        {
+          repetitions: [5, 10]
         }
       ]
     },
     {
-      exercise: supino,
+      exercise: apoio,
       rest: 60,
       serietype: 'normal',
       unit: 'kg',
+      bodyweight: true,
       series: [
         {
-          repetitions: [8, 10],
-          weight: 0
+          repetitions: [20]
         },
         {
-          repetitions: [8, 10],
-          weight: 0
+          repetitions: [20]
         },
         {
-          repetitions: [8, 10],
-          weight: 0
+          repetitions: [20]
+        },
+        {
+          repetitions: [20]
         }
       ]
     },
