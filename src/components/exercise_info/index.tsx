@@ -46,11 +46,11 @@ export const ExerciseInfo = ({ ...props }: ExerciseInfoProps) => {
             className="col-7 accordion d-flex flex-column justify-content-center"
             id="accordionMuscles"
           >
-            {props.exercise.exercise.musclegroup.map((mg) => {
+            {props.exercise.exercise.musclegroup.map((mg, i) => {
               const uniqueId =
                 `${mg.name}-${props.exercise.exercise.name}`.replaceAll(' ', '')
               return (
-                <div className="accordion-item" key={uniqueId}>
+                <div className="accordion-item" key={`${uniqueId}-${i}`}>
                   <h2 className="accordion-header">
                     <button
                       className="accordion-button collapsed py-1 px-2"
@@ -66,17 +66,20 @@ export const ExerciseInfo = ({ ...props }: ExerciseInfoProps) => {
                   <div
                     id={`panelCollapse-${uniqueId}`}
                     className="accordion-collapse collapse"
-                    data-bs-parent="#accordionMuscles"
                   >
-                    <ul className="accordion-body">
-                      {mg.musclegroup.map((_mg, ii) => {
-                        return (
-                          <li key={ii}>
-                            <span>{_mg}</span>
-                          </li>
-                        )
-                      })}
-                    </ul>
+                    <div className="accordion-body m-0 p-0">
+                      <ul className="m-auto p-1" style={{ listStyle: 'none' }}>
+                        {mg.musclegroup.map((_mg, ii) => {
+                          return (
+                            <li key={ii}>
+                              <span
+                                style={{ fontSize: '0.9em' }}
+                              >{`- ${_mg}`}</span>
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               )

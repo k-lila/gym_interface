@@ -15,7 +15,6 @@ const daily_A: DailyWorkout = {
       serietype: 'normal',
       bodyweight: true,
       grip: 'pronada',
-      obs: 'asd hasdhuapsduha psduhapsid uhapsi duaspi duhapsidu hapsiudhasi udhaisud hapsdu hapsiudha',
       series: [
         {
           repetitions: [5, 10]

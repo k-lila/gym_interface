@@ -56,12 +56,12 @@ export const barra_paralela: Exercise = {
 
 export const puxada_alta: Exercise = {
   name: 'puxada alta',
-  musclegroup: [getMuscleGroup('costas')]
+  musclegroup: [getMuscleGroup('costas'), getMuscleGroup('bíceps')]
 }
 
 export const hammer: Exercise = {
   name: 'hammer',
-  musclegroup: [getMuscleGroup('costas')]
+  musclegroup: [getMuscleGroup('costas'), getMuscleGroup('bíceps')]
 }
 
 export const serrote: Exercise = {
@@ -126,10 +126,10 @@ export const hiperextensao_lombar: Exercise = {
 
 export const barra_fixa: Exercise = {
   name: 'barra fixa',
-  musclegroup: [getMuscleGroup('costas')]
+  musclegroup: [getMuscleGroup('costas'), getMuscleGroup('bíceps')]
 }
 
 export const apoio: Exercise = {
   name: 'apoio',
-  musclegroup: [getMuscleGroup('peito')]
+  musclegroup: [getMuscleGroup('peito'), getMuscleGroup('tríceps')]
 }
