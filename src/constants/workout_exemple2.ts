@@ -33,20 +33,16 @@ const daily_A: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [10],
-          weight: 60
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 60
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 60
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 60
+          repetitions: [10]
         }
       ],
       grip: 'pronada',
@@ -58,20 +54,16 @@ const daily_A: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [10, 12],
-          weight: 20
+          repetitions: [10, 12]
         },
         {
-          repetitions: [10, 12],
-          weight: 20
+          repetitions: [10, 12]
         },
         {
-          repetitions: [10, 12],
-          weight: 20
+          repetitions: [10, 12]
         },
         {
-          repetitions: [10, 12],
-          weight: 20
+          repetitions: [10, 12]
         }
       ],
       grip: 'supinada',
@@ -83,16 +75,13 @@ const daily_A: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [10],
-          weight: 22
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 22
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 22
+          repetitions: [10]
         }
       ],
       rest: 60,
@@ -104,20 +93,16 @@ const daily_A: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [8, 10],
-          weight: 15
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 15
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 15
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 15
+          repetitions: [8, 10]
         }
       ],
       grip: 'pronada',
@@ -130,20 +115,16 @@ const daily_A: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [10],
-          weight: 10
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 10
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 10
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 10
+          repetitions: [10]
         }
       ],
       rest: 60,
@@ -155,20 +136,16 @@ const daily_A: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [8, 10],
-          weight: 8
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 8
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 8
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 8
+          repetitions: [8, 10]
         }
       ],
       rest: 60,
@@ -180,16 +157,13 @@ const daily_A: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [10, 12],
-          weight: 30
+          repetitions: [10, 12]
         },
         {
-          repetitions: [10, 12],
-          weight: 30
+          repetitions: [10, 12]
         },
         {
-          repetitions: [10, 12],
-          weight: 30
+          repetitions: [10, 12]
         }
       ],
       grip: 'pronada',
@@ -219,20 +193,16 @@ const daily_B: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [8, 10],
-          weight: 44
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 44
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 44
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 44
+          repetitions: [8, 10]
         }
       ],
       rest: 60
@@ -243,24 +213,19 @@ const daily_B: DailyWorkout = {
       serietype: 'custom',
       series: [
         {
-          repetitions: [7],
-          weight: 70
+          repetitions: [7]
         },
         {
-          repetitions: [7],
-          weight: 70
+          repetitions: [7]
         },
         {
-          repetitions: [7],
-          weight: 80
+          repetitions: [7]
         },
         {
-          repetitions: [7],
-          weight: 80
+          repetitions: [7]
         },
         {
-          repetitions: [7],
-          weight: 90
+          repetitions: [7]
         }
       ],
       rest: 120,
@@ -272,20 +237,16 @@ const daily_B: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [10, 12],
-          weight: 50
+          repetitions: [10, 12]
         },
         {
-          repetitions: [10, 12],
-          weight: 50
+          repetitions: [10, 12]
         },
         {
-          repetitions: [10, 12],
-          weight: 50
+          repetitions: [10, 12]
         },
         {
-          repetitions: [10, 12],
-          weight: 50
+          repetitions: [10, 12]
         }
       ],
       rest: 60
@@ -296,20 +257,16 @@ const daily_B: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [8, 10],
-          weight: 50
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 50
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 50
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 50
+          repetitions: [8, 10]
         }
       ],
       rest: 60
@@ -320,20 +277,16 @@ const daily_B: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [8, 10],
-          weight: 50
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 50
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 50
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 50
+          repetitions: [8, 10]
         }
       ],
       rest: 60
@@ -344,16 +297,13 @@ const daily_B: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [12],
-          weight: 45
+          repetitions: [12]
         },
         {
-          repetitions: [12],
-          weight: 45
+          repetitions: [12]
         },
         {
-          repetitions: [12],
-          weight: 45
+          repetitions: [12]
         }
       ],
       grip: 'pronada',
@@ -365,16 +315,13 @@ const daily_B: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [8, 12],
-          weight: 15
+          repetitions: [8, 12]
         },
         {
-          repetitions: [8, 12],
-          weight: 15
+          repetitions: [8, 12]
         },
         {
-          repetitions: [8, 12],
-          weight: 15
+          repetitions: [8, 12]
         }
       ],
       rest: 60,
@@ -392,20 +339,16 @@ const daily_C: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [8, 10],
-          weight: 20
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 20
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 20
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 20
+          repetitions: [8, 10]
         }
       ],
       grip: 'pronada',
@@ -418,20 +361,16 @@ const daily_C: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [8, 10],
-          weight: 18
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 18
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 18
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 18
+          repetitions: [8, 10]
         }
       ],
       grip: 'pronada',
@@ -444,20 +383,16 @@ const daily_C: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [8, 10],
-          weight: 14
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 14
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 14
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 14
+          repetitions: [8, 10]
         }
       ],
       grip: 'pronada',
@@ -470,20 +405,16 @@ const daily_C: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [10],
-          weight: 14
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 14
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 14
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 14
+          repetitions: [10]
         }
       ],
       grip: 'pronada',
@@ -496,16 +427,13 @@ const daily_C: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [10],
-          weight: 10
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 10
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 10
+          repetitions: [10]
         }
       ],
       grip: 'pronada',
@@ -518,20 +446,16 @@ const daily_C: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [10],
-          weight: 15
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 15
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 15
+          repetitions: [10]
         },
         {
-          repetitions: [10],
-          weight: 15
+          repetitions: [10]
         }
       ],
       grip: 'supinada',
@@ -544,20 +468,16 @@ const daily_C: DailyWorkout = {
       serietype: 'normal',
       series: [
         {
-          repetitions: [8, 10],
-          weight: 8
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 8
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 8
+          repetitions: [8, 10]
         },
         {
-          repetitions: [8, 10],
-          weight: 8
+          repetitions: [8, 10]
         }
       ],
       grip: 'pronada',
