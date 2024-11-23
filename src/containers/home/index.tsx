@@ -7,6 +7,7 @@ import {
 } from '../../store/reducers/preferences'
 import { HomeStyled } from './styles'
 import { SelectWorkout } from '../../components/modal_selectworkout'
+import exercise from '../../assets/exercise.png'
 
 export const HomeHandler = () => {
   const dispatch = useDispatch()
@@ -28,45 +29,65 @@ export const HomeHandler = () => {
     }
   }
   return (
-    <HomeStyled className="container bg-dark">
-      <div className="row">
-        <div className="bg-light rounded info">info</div>
-      </div>
+    <HomeStyled className="bg-dark">
+      <div className="bg-light rounded info">info</div>
 
-      <div className="row d-flex justify-content-evenly">
-        <button className="btn btn-primary col-4">A</button>
-        <button className="btn btn-primary col-4">B</button>
-      </div>
-
-      <div className="row d-flex justify-content-evenly">
-        <button className="btn btn-primary col-4">
-          <span className="fs-3 border-bottom border-secondary w-75">
-            criar
-          </span>
-          <span className="fs-3">editar</span>
-        </button>
-        {logs.ontraining ? (
-          <div className="col-4">
+      <div className="container">
+        <div className="row d-flex">
+          <div className="col-6 p-1 d-flex align-items-center justify-content-center">
             <button
-              className="fs-2 border-bottom"
+              // disabled
+              className="btn btn-light btn-home btn-home--disabled"
+            >
+              <i className="bi bi-person-circle"></i>
+              <span>conexões</span>
+            </button>
+          </div>
+          <div className="col-6 p-1 d-flex align-items-center justify-content-center">
+            <button
+              // disabled
+              className="btn btn-light btn-home btn-home--disabled"
+            >
+              <i className="bi bi-pie-chart-fill"></i>
+              <span>gráficos</span>
+            </button>
+          </div>
+        </div>
+        <div className="row d-flex">
+          <div className="col-6 p-1 d-flex align-items-center justify-content-center">
+            <button
+              // disabled
+              className="btn btn-light btn-home btn-home--disabled d-flex flex-column justify-content-center align-items-center"
+            >
+              <i className="bi bi-tools"></i>
+              <span>criar/editar</span>
+            </button>
+          </div>
+          <div className="col-6 p-1 d-flex align-items-center justify-content-center">
+            <button
+              className="btn btn-primary btn-home d-flex flex-column justify-content-center align-items-center"
               data-bs-toggle="modal"
               data-bs-target="#chooseWorkout"
             >
-              escolher
-            </button>
-            <button onClick={toWorkout} className="fs-2 border-top">
-              treino
+              <img className="btn-image m-2" src={exercise} alt="haltere" />
+              <span>treino</span>
             </button>
           </div>
-        ) : (
+        </div>
+        <div className="row d-flex px-3 my-3">
           <button
-            className="btn btn-primary fs-2 col-4"
-            data-bs-toggle="modal"
-            data-bs-target="#chooseWorkout"
+            onClick={toWorkout}
+            className={`btn ${
+              logs.ontraining
+                ? 'btn-outline-success bg-light'
+                : 'btn-dark text-dark'
+            }`}
+            disabled={!logs.ontraining}
           >
-            treino
+            <i className="bi bi-fast-forward-fill me-1"></i>
+            <span>treino em andamento</span>
           </button>
-        )}
+        </div>
       </div>
       <SelectWorkout />
     </HomeStyled>

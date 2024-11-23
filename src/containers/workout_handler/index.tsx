@@ -75,15 +75,17 @@ export const WorkoutHandler = () => {
         {logs.ontraining ? (
           <>
             {onTrainingPage ? (
-              <button
-                className="btn bg-light btn-outline-danger"
-                data-bs-toggle="modal"
-                data-bs-target="#confirmModal"
-                onClick={handleFinish}
-              >
-                <i className="bi bi-stop-fill"></i>
-                <span>finalizar</span>
-              </button>
+              <div className="d-flex bg-light m-0 p-0 rounded">
+                <button
+                  className="btn btn-outline-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#confirmModal"
+                  onClick={handleFinish}
+                >
+                  <i className="bi bi-stop-fill"></i>
+                  <span>finalizar</span>
+                </button>
+              </div>
             ) : (
               <button
                 className="btn bg-light btn-outline-primary"
@@ -94,20 +96,22 @@ export const WorkoutHandler = () => {
             )}
           </>
         ) : (
-          <button
-            className="btn bg-light btn-outline-success"
-            data-bs-toggle="modal"
-            data-bs-target="#confirmModal"
-          >
-            <i className="bi bi-play-fill"></i>
-            <span>iniciar</span>
-          </button>
+          <div className="d-flex bg-light m-0 p-0 rounded">
+            <button
+              className="btn btn-outline-success"
+              data-bs-toggle="modal"
+              data-bs-target="#confirmModal"
+            >
+              <i className="bi bi-play-fill"></i>
+              <span>iniciar</span>
+            </button>
+          </div>
         )}
         {logs.ontraining ? <RestCounter /> : null}
-        <div className="dropup">
+        <div className="dropup bg-light rounded">
           <button
             type="button"
-            className="btn bg-light btn-outline-primary border-2 dropdown-toggle"
+            className="btn btn-outline-primary border-2 dropdown-toggle"
             data-bs-toggle="dropdown"
             aria-expanded="false"
             data-bs-auto-close="outside"
