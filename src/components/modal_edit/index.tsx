@@ -161,26 +161,12 @@ export const ModalEdit = () => {
                     +
                   </button>
                 </div>
-                <div className="d-flex justify-content-between w-100">
-                  <button
-                    type="button"
-                    style={{ transform: 'rotate(90deg)' }}
-                    className="btn btn-outline-success"
-                    onClick={() => setMinRep(maxRep)}
-                  >{`<`}</button>
-                  <label
-                    htmlFor="maxrepetitions"
-                    className="form-label d-flex my-auto"
-                  >
-                    max
-                  </label>
-                  <button
-                    type="button"
-                    style={{ transform: 'rotate(90deg)' }}
-                    className="btn btn-outline-success"
-                    onClick={() => setMaxRep(minRep)}
-                  >{`>`}</button>
-                </div>
+                <label
+                  htmlFor="maxrepetitions"
+                  className="form-label d-flex my-auto"
+                >
+                  max
+                </label>
                 <div className="d-flex">
                   <button
                     type="button"

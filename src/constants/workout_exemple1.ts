@@ -1,16 +1,11 @@
-import {
-  agachamento,
-  apoio,
-  barra_fixa,
-  levantamento_terra
-} from './exercises_exemples'
+import { getExercise } from './exercises_exemples'
 
 const daily_A: DailyWorkout = {
   name: 'A',
   obs: 'exemplo',
   exercises: [
     {
-      exercise: barra_fixa,
+      exercise: getExercise('barra fixa'),
       rest: 60,
       serietype: 'normal',
       bodyweight: true,
@@ -34,7 +29,7 @@ const daily_A: DailyWorkout = {
       ]
     },
     {
-      exercise: apoio,
+      exercise: getExercise('apoio'),
       rest: 60,
       serietype: 'normal',
       unit: 'kg',
@@ -55,7 +50,7 @@ const daily_A: DailyWorkout = {
       ]
     },
     {
-      exercise: agachamento,
+      exercise: getExercise('agachamento'),
       rest: 60,
       serietype: 'normal',
       unit: 'kg',
@@ -66,7 +61,7 @@ const daily_A: DailyWorkout = {
       ]
     },
     {
-      exercise: levantamento_terra,
+      exercise: getExercise('levantamento terra'),
       rest: 120,
       serietype: 'custom',
       unit: 'kg',

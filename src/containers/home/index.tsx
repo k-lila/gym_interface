@@ -30,9 +30,8 @@ export const HomeHandler = () => {
   }
   return (
     <HomeStyled className="bg-dark">
-      <div className="bg-light rounded info">info</div>
-
-      <div className="container">
+      <div className="container bg-dark rounded py-3 border border-light">
+        <div className="row bg-light rounded info">info</div>
         <div className="row d-flex">
           <div className="col-6 p-1 d-flex align-items-center justify-content-center">
             <button
@@ -57,7 +56,7 @@ export const HomeHandler = () => {
           <div className="col-6 p-1 d-flex align-items-center justify-content-center">
             <button
               // disabled
-              className="btn btn-light btn-home btn-home--disabled d-flex flex-column justify-content-center align-items-center"
+              className="btn btn-light btn-home btn-home--disabled"
             >
               <i className="bi bi-tools"></i>
               <span>criar/editar</span>
@@ -65,29 +64,30 @@ export const HomeHandler = () => {
           </div>
           <div className="col-6 p-1 d-flex align-items-center justify-content-center">
             <button
-              className="btn btn-primary btn-home d-flex flex-column justify-content-center align-items-center"
+              className="btn btn-primary btn-home"
               data-bs-toggle="modal"
               data-bs-target="#chooseWorkout"
             >
-              <img className="btn-image m-2" src={exercise} alt="haltere" />
+              <img className="btn-image" src={exercise} alt="haltere" />
               <span>treino</span>
             </button>
           </div>
         </div>
-        <div className="row d-flex px-3 my-3">
-          <button
-            onClick={toWorkout}
-            className={`btn ${
-              logs.ontraining
-                ? 'btn-outline-success bg-light'
-                : 'btn-dark text-dark'
-            }`}
-            disabled={!logs.ontraining}
-          >
-            <i className="bi bi-fast-forward-fill me-1"></i>
-            <span>treino em andamento</span>
-          </button>
-        </div>
+        {logs.ontraining ? (
+          <div className="row d-flex px-3 my-3">
+            <button
+              onClick={toWorkout}
+              className={`btn ${
+                logs.ontraining
+                  ? 'btn-outline-success bg-light'
+                  : 'btn-dark text-dark'
+              }`}
+            >
+              <i className="bi bi-fast-forward-fill me-1"></i>
+              <span>treino em andamento</span>
+            </button>
+          </div>
+        ) : null}
       </div>
       <SelectWorkout />
     </HomeStyled>

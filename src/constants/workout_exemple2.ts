@@ -1,34 +1,10 @@
-import {
-  abdominal_infra,
-  abdutora,
-  agachamento,
-  barra_paralela,
-  biceps_martelo,
-  crossover_baixa,
-  crucifixo_reto,
-  desenvolvimento,
-  elevacao_lateral,
-  elevacao_pelvica,
-  extensora,
-  flexora,
-  hammer,
-  hiperextensao_lombar,
-  levantamento_terra,
-  puxada_alta,
-  remada_curvada,
-  rosca_alternada,
-  rosca_inversa,
-  serrote,
-  supino,
-  supino_inclinado,
-  triceps_coice
-} from './exercises_exemples'
+import { getExercise } from './exercises_exemples'
 
 const daily_A: DailyWorkout = {
   name: 'A',
   exercises: [
     {
-      exercise: puxada_alta,
+      exercise: getExercise('puxada alta'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -49,7 +25,7 @@ const daily_A: DailyWorkout = {
       rest: 60
     },
     {
-      exercise: hammer,
+      exercise: getExercise('hammer'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -70,7 +46,7 @@ const daily_A: DailyWorkout = {
       rest: 60
     },
     {
-      exercise: serrote,
+      exercise: getExercise('serrote'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -88,7 +64,7 @@ const daily_A: DailyWorkout = {
       obs: 'haltere'
     },
     {
-      exercise: remada_curvada,
+      exercise: getExercise('remada curvada'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -110,7 +86,7 @@ const daily_A: DailyWorkout = {
       obs: 'barra olímpica'
     },
     {
-      exercise: biceps_martelo,
+      exercise: getExercise('bíceps martelo'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -131,7 +107,7 @@ const daily_A: DailyWorkout = {
       obs: 'haltere'
     },
     {
-      exercise: rosca_alternada,
+      exercise: getExercise('rosca alternada'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -152,7 +128,7 @@ const daily_A: DailyWorkout = {
       obs: 'haltere'
     },
     {
-      exercise: rosca_inversa,
+      exercise: getExercise('rosca inversa'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -171,7 +147,7 @@ const daily_A: DailyWorkout = {
       obs: 'cabo'
     },
     {
-      exercise: abdominal_infra,
+      exercise: getExercise('abdominal infra'),
       serietype: 'normal',
       series: [
         { repetitions: [12] },
@@ -188,7 +164,7 @@ const daily_B: DailyWorkout = {
   name: 'B',
   exercises: [
     {
-      exercise: agachamento,
+      exercise: getExercise('agachamento'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -208,7 +184,7 @@ const daily_B: DailyWorkout = {
       rest: 60
     },
     {
-      exercise: levantamento_terra,
+      exercise: getExercise('levantamento terra'),
       unit: 'kg',
       serietype: 'custom',
       series: [
@@ -232,7 +208,7 @@ const daily_B: DailyWorkout = {
       obs: 'alta carga'
     },
     {
-      exercise: elevacao_pelvica,
+      exercise: getExercise('elevação pélvica'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -252,7 +228,7 @@ const daily_B: DailyWorkout = {
       rest: 60
     },
     {
-      exercise: extensora,
+      exercise: getExercise('cadeira extensora'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -272,7 +248,7 @@ const daily_B: DailyWorkout = {
       rest: 60
     },
     {
-      exercise: flexora,
+      exercise: getExercise('cadeira flexora'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -292,7 +268,7 @@ const daily_B: DailyWorkout = {
       rest: 60
     },
     {
-      exercise: abdutora,
+      exercise: getExercise('cadeira abdutora'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -310,7 +286,7 @@ const daily_B: DailyWorkout = {
       rest: 60
     },
     {
-      exercise: hiperextensao_lombar,
+      exercise: getExercise('hiperextensão lombar'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -334,7 +310,7 @@ const daily_C: DailyWorkout = {
   name: 'C',
   exercises: [
     {
-      exercise: supino,
+      exercise: getExercise('supino'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -356,7 +332,7 @@ const daily_C: DailyWorkout = {
       obs: 'haltere'
     },
     {
-      exercise: supino_inclinado,
+      exercise: getExercise('supino inclinado'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -378,7 +354,7 @@ const daily_C: DailyWorkout = {
       obs: 'haltere'
     },
     {
-      exercise: crucifixo_reto,
+      exercise: getExercise('crucifixo reto'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -400,7 +376,7 @@ const daily_C: DailyWorkout = {
       obs: 'haltere'
     },
     {
-      exercise: desenvolvimento,
+      exercise: getExercise('desenvolvimento'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -422,7 +398,7 @@ const daily_C: DailyWorkout = {
       obs: 'haltere'
     },
     {
-      exercise: triceps_coice,
+      exercise: getExercise('tríceps coice'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -441,7 +417,7 @@ const daily_C: DailyWorkout = {
       obs: 'polia'
     },
     {
-      exercise: crossover_baixa,
+      exercise: getExercise('crossover'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -463,7 +439,7 @@ const daily_C: DailyWorkout = {
       obs: 'polia baixa'
     },
     {
-      exercise: elevacao_lateral,
+      exercise: getExercise('elevação lateral'),
       unit: 'kg',
       serietype: 'normal',
       series: [
@@ -484,7 +460,7 @@ const daily_C: DailyWorkout = {
       rest: 60
     },
     {
-      exercise: barra_paralela,
+      exercise: getExercise('barra paralela'),
       unit: 'kg',
       serietype: 'normal',
       series: [
