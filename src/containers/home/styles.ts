@@ -8,17 +8,17 @@ export const HomeStyled = styled.main`
   margin: 0;
   padding: 1em;
   .info {
-    width: 100%;
     height: 20svh;
-    margin: 3vmin auto;
   }
   .container {
     display: grid;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0;
-    padding: 0;
+    margin: 0 auto;
+    padding: 1em;
+    max-width: fit-content;
+    max-height: fit-content;
   }
   .btn-image {
     height: 3em;
@@ -31,8 +31,8 @@ export const HomeStyled = styled.main`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    width: 35vw;
-    height: 35vw;
+    width: 7em;
+    height: 7em;
     i {
       font-size: 3em;
     }
