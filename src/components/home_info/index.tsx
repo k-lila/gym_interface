@@ -1,7 +1,9 @@
 import { useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
+import { useNavigate } from 'react-router-dom'
 
 export const HomeInfo = () => {
+  const navigate = useNavigate()
   const user_info = useSelector((state: RootReducer) => state.userinfo)
   const logs = useSelector((state: RootReducer) => state.logs)
 
@@ -21,7 +23,7 @@ export const HomeInfo = () => {
           <div className="d-flex">
             <p className="w-50 m-1 py-1 px-2 bg-dark rounded text-light">
               <b>idade:</b>
-              {` ${user_info.age}`}
+              {` ${user_info.age > 0 ? user_info.age : '-'}`}
             </p>
             <p className="w-50 m-1 py-1 px-2 bg-dark rounded text-light">
               <b>IMC:</b>
@@ -33,7 +35,10 @@ export const HomeInfo = () => {
           <button className="btn btn-primary px-1 py-0 m-1" disabled>
             <i className="bi bi-gear-fill"></i>
           </button>
-          <button className="btn btn-primary px-1 py-0 m-1">
+          <button
+            onClick={() => navigate('/userinfo')}
+            className="btn btn-primary px-1 py-0 m-1"
+          >
             <i className="bi bi-person-fill"></i>
           </button>
         </div>
