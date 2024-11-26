@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 
 import {
+  addHistory,
   eraser,
   setEnd,
   setSetupLog,
@@ -55,7 +56,7 @@ export const ModalWorkout = () => {
   useEffect(() => {
     const end = log.log.end ? true : false
     if (end) {
-      console.log(log)
+      dispatch(addHistory(log.log))
       dispatch(eraser())
     }
   }, [log, dispatch])
