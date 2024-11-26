@@ -4,6 +4,7 @@ type WorkoutLogState = {
   ontraining: boolean
   finishtime: string
   log: WorkoutLog
+  history?: Array<WorkoutLog>
 }
 
 const initialState: WorkoutLogState = {
@@ -48,10 +49,20 @@ const logSlice = createSlice({
     eraser: (state) => {
       state.ontraining = initialState.ontraining
       state.log = initialState.log
+    },
+    addHistory: (state, action: PayloadAction<WorkoutLog>) => {
+      state.history = [...(state.history || []), action.payload]
     }
   }
 })
 
-export const { setSetupLog, setStart, setEnd, setFinish, addSerie, eraser } =
-  logSlice.actions
+export const {
+  setSetupLog,
+  setStart,
+  setEnd,
+  setFinish,
+  addSerie,
+  eraser,
+  addHistory
+} = logSlice.actions
 export default logSlice.reducer

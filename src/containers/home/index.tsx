@@ -8,6 +8,7 @@ import {
 import { HomeStyled } from './styles'
 import { SelectWorkout } from '../../components/modal_selectworkout'
 import exercise from '../../assets/exercise.png'
+import { HomeInfo } from '../../components/home_info'
 
 export const HomeHandler = () => {
   const dispatch = useDispatch()
@@ -31,8 +32,8 @@ export const HomeHandler = () => {
   return (
     <HomeStyled className="bg-dark">
       <div className="container bg-dark rounded py-1 border border-light">
-        <div className="row bg-light d-flex m-0 my-3 rounded">
-          <div className="info">info</div>
+        <div className="row d-flex m-0 my-3 rounded">
+          <HomeInfo />
         </div>
         <div className="row d-flex">
           <div className="col-6 p-1 d-flex align-items-center justify-content-center">

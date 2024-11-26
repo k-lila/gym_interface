@@ -8,8 +8,12 @@ export const HomeStyled = styled.main`
   margin: 0;
   padding: 1em;
   .info {
-    height: 20svh;
+    p,
+    b {
+      font-size: 0.9em;
+    }
   }
+
   .container {
     display: grid;
     flex-direction: column;
