@@ -8,10 +8,10 @@ type UserInfoState = {
 }
 
 const initialState: UserInfoState = {
-  name: 'Krishna',
-  age: 35,
-  bodyweight: 72.5,
-  height: 171
+  name: '',
+  age: 0,
+  bodyweight: 0,
+  height: 0
 }
 
 const userInfoSlice = createSlice({
