@@ -60,7 +60,7 @@ export const UserInfoModal = () => {
                   value={name}
                   id="username"
                   type="text"
-                  className="form-control border-0 w-75"
+                  className="form-control w-75 text-center border"
                 />
               </div>
               <div className="row d-flex p-2 m-auto border-bottom">
@@ -79,7 +79,7 @@ export const UserInfoModal = () => {
                   onChange={(e) => setAge(e.target.value)}
                   id="userage"
                   type="number"
-                  className="form-control w-25 border-0"
+                  className="form-control w-25 text-center border"
                 />
               </div>
               <div className="row d-flex p-2 m-auto border-bottom">
@@ -97,8 +97,8 @@ export const UserInfoModal = () => {
                   value={height}
                   onChange={(e) => setHeight(e.target.value)}
                   id="userheight"
-                  type="text"
-                  className="form-control w-25 border-0"
+                  type="number"
+                  className="form-control w-25 text-center border"
                 />
               </div>
               <div className="row d-flex p-2 m-auto border-bottom">
@@ -116,8 +116,8 @@ export const UserInfoModal = () => {
                   value={weight}
                   onChange={(e) => setWeight(e.target.value)}
                   id="userweight"
-                  type="text"
-                  className="form-control w-25 border-0"
+                  type="number"
+                  className="form-control w-25 text-center border"
                 />
               </div>
             </form>
