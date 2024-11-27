@@ -1,14 +1,10 @@
 import { useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
+import { getImc } from '../../utils/getimc'
 
 export const HomeInfo = () => {
   const user_info = useSelector((state: RootReducer) => state.userinfo)
   const logs = useSelector((state: RootReducer) => state.logs)
-
-  const imc =
-    user_info.bodyweight > 0 && user_info.height > 0
-      ? (user_info.bodyweight / (user_info.height / 100) ** 2).toFixed(2)
-      : '-'
 
   return (
     <div className="info px-3">
@@ -25,7 +21,11 @@ export const HomeInfo = () => {
             </p>
             <p className="w-50 m-1 py-1 px-2 bg-light rounded text-dark">
               <b>IMC:</b>
-              {` ${imc}`}
+              {` ${
+                getImc(user_info.bodyweight, user_info.height) == 0
+                  ? '-'
+                  : getImc(user_info.bodyweight, user_info.height)
+              }`}
             </p>
           </div>
         </div>

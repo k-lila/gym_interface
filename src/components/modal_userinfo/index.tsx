@@ -1,18 +1,27 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   setUserAge,
   setUserBodyweight,
   setUserHeight,
   setUserName
 } from '../../store/reducers/userinfo'
+import { RootReducer } from '../../store'
+import { getImc } from '../../utils/getimc'
 
 export const UserInfoModal = () => {
   const dispatch = useDispatch()
-  const [name, setName] = useState('')
-  const [age, setAge] = useState('')
-  const [weight, setWeight] = useState('')
-  const [height, setHeight] = useState('')
+
+  const userinfo = useSelector((state: RootReducer) => state.userinfo)
+
+  const [name, setName] = useState(userinfo.name)
+  const [age, setAge] = useState(`${userinfo.age > 0 ? userinfo.age : ''}`)
+  const [weight, setWeight] = useState(
+    `${userinfo.bodyweight > 0 ? userinfo.bodyweight : ''}`
+  )
+  const [height, setHeight] = useState(
+    `${userinfo.height > 0 ? userinfo.height : ''}`
+  )
   const [toggleDisable, setToggleDisable] = useState(true)
 
   useEffect(() => {
@@ -63,62 +72,74 @@ export const UserInfoModal = () => {
                   className="form-control w-75 text-center border"
                 />
               </div>
+
               <div className="row d-flex p-2 m-auto border-bottom">
-                <label
-                  htmlFor="userage"
-                  className="form-label w-25 my-auto d-flex flex-column"
-                >
-                  <span className="text-center">idade</span>
-                  <span
-                    style={{ fontSize: '0.8em' }}
-                    className="text-center"
-                  >{`(anos)`}</span>
-                </label>
-                <input
-                  value={age}
-                  onChange={(e) => setAge(e.target.value)}
-                  id="userage"
-                  type="number"
-                  className="form-control w-25 text-center border"
-                />
+                <div className="d-flex col-6 m-0 p-0">
+                  <label
+                    htmlFor="userage"
+                    className="form-label my-auto px-3 d-flex flex-column"
+                  >
+                    <span className="text-center">idade</span>
+                    <span
+                      style={{ fontSize: '0.8em' }}
+                      className="text-center"
+                    >{`(anos)`}</span>
+                  </label>
+                  <input
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                    id="userage"
+                    type="number"
+                    className="form-control text-center border"
+                  />
+                </div>
+                <div className="d-flex col-6 m-0 p-0">
+                  <label
+                    htmlFor="userheight"
+                    className="form-label my-auto px-3 d-flex flex-column"
+                  >
+                    <span className="text-center">altura</span>
+                    <span
+                      style={{ fontSize: '0.8em' }}
+                      className="text-center"
+                    >{`(cm)`}</span>
+                  </label>
+                  <input
+                    value={height}
+                    onChange={(e) => setHeight(e.target.value)}
+                    id="userheight"
+                    type="number"
+                    className="form-control text-center border"
+                  />
+                </div>
               </div>
+
               <div className="row d-flex p-2 m-auto border-bottom">
-                <label
-                  htmlFor="userheight"
-                  className="form-label w-25 my-auto d-flex flex-column"
-                >
-                  <span className="text-center">altura</span>
-                  <span
-                    style={{ fontSize: '0.8em' }}
-                    className="text-center"
-                  >{`(cm)`}</span>
-                </label>
-                <input
-                  value={height}
-                  onChange={(e) => setHeight(e.target.value)}
-                  id="userheight"
-                  type="number"
-                  className="form-control w-25 text-center border"
-                />
-              </div>
-              <div className="row d-flex p-2 m-auto border-bottom">
-                <label
-                  htmlFor="userweight"
-                  className="form-label w-25 my-auto d-flex flex-column"
-                >
-                  <span className="text-center">peso</span>
-                  <span
-                    style={{ fontSize: '0.8em' }}
-                    className="text-center"
-                  >{`(kg)`}</span>
-                </label>
-                <input
-                  value={weight}
-                  onChange={(e) => setWeight(e.target.value)}
-                  id="userweight"
-                  type="number"
-                  className="form-control w-25 text-center border"
-                />
+                <div className="d-flex col-6 m-0 p-0">
+                  <label
+                    htmlFor="userweight"
+                    className="form-label my-auto px-3 d-flex flex-column"
+                  >
+                    <span className="text-center">peso</span>
+                    <span
+                      style={{ fontSize: '0.8em' }}
+                      className="text-center"
+                    >{`(kg)`}</span>
+                  </label>
+                  <input
+                    value={weight}
+                    onChange={(e) => setWeight(e.target.value)}
+                    id="userweight"
+                    type="number"
+                    className="form-control text-center border"
+                  />
+                </div>
+                <div className="d-flex col-6 m-0 p-0">
+                  <span className="my-auto px-3 d-flex">IMC</span>
+                  <span className="form-control text-center border-dark">
+                    {getImc(Number(weight), Number(height))}
+                  </span>
+                </div>
               </div>
             </form>
           </div>

@@ -32,8 +32,8 @@ export const HomeHandler = () => {
     }
   }
   return (
-    <HomeStyled className="bg-light">
-      <div className="bg-dark rounded px-1 py-2 d-block m-auto">
+    <HomeStyled className="bg-dark">
+      <div className="bg-light rounded px-1 py-2 d-block m-auto">
         <div className="container bg-light rounded p-1">
           <div className="row d-flex m-0 my-2 rounded">
             <HomeInfo />

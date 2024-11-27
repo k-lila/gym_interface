@@ -134,7 +134,7 @@ export const WorkoutHandler = () => {
                 >
                   {defaultworkout?.workouts.map((w, i) => {
                     const detach =
-                      dailyworkout == w ? 'btn-primary' : 'btn-outline-dark'
+                      dailyworkout == w ? 'btn-primary' : 'btn-outline-primary'
                     return (
                       <button
                         key={i}
