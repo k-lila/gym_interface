@@ -136,7 +136,7 @@ export const UserInfoModal = () => {
                 </div>
                 <div className="d-flex col-6 m-0 p-0">
                   <span className="my-auto px-3 d-flex">IMC</span>
-                  <span className="form-control text-center border-dark">
+                  <span className="form-control border-dark d-flex align-items-center justify-content-center">
                     {getImc(Number(weight), Number(height))}
                   </span>
                 </div>
