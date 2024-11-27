@@ -417,7 +417,7 @@ const daily_C: DailyWorkout = {
       obs: 'polia'
     },
     {
-      exercise: getExercise('crossover'),
+      exercise: getExercise('crossover polia baixa'),
       unit: 'kg',
       serietype: 'normal',
       series: [

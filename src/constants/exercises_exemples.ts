@@ -30,7 +30,7 @@ const exercises: Exercise[] = [
     musclegroup: [getMuscleGroup('peito'), getMuscleGroup('ombro')]
   },
   {
-    name: 'triceps coice',
+    name: 'tríceps coice',
     musclegroup: [getMuscleGroup('tríceps'), getMuscleGroup('ombro')]
   },
   {

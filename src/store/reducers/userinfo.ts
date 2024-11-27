@@ -18,21 +18,21 @@ const userInfoSlice = createSlice({
   name: 'user_info',
   initialState,
   reducers: {
-    setName: (state, action: PayloadAction<string>) => {
+    setUserName: (state, action: PayloadAction<string>) => {
       state.name = action.payload
     },
-    setAge: (state, action: PayloadAction<number>) => {
+    setUserAge: (state, action: PayloadAction<number>) => {
       state.age = action.payload
     },
-    setBodyweight: (state, action: PayloadAction<number>) => {
+    setUserBodyweight: (state, action: PayloadAction<number>) => {
       state.bodyweight = action.payload
     },
-    setHeight: (state, action: PayloadAction<number>) => {
+    setUserHeight: (state, action: PayloadAction<number>) => {
       state.height = action.payload
     }
   }
 })
 
-export const { setAge, setBodyweight, setHeight, setName } =
+export const { setUserAge, setUserBodyweight, setUserHeight, setUserName } =
   userInfoSlice.actions
 export default userInfoSlice.reducer

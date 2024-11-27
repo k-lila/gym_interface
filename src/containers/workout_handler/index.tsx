@@ -65,88 +65,90 @@ export const WorkoutHandler = () => {
           )
         })}
       </div>
-      <footer className="bg-dark d-flex justify-content-between p-2 position-fixed bottom-0 w-100">
-        <button
-          className="btn bg-light btn-outline-primary border-2"
-          onClick={() => navigate('/')}
-        >
-          <i className="bi bi-caret-left-fill"></i>
-        </button>
-        {logs.ontraining ? (
-          <>
-            {onTrainingPage ? (
-              <div className="d-flex bg-light m-0 p-0 rounded">
-                <button
-                  className="btn btn-outline-danger"
-                  data-bs-toggle="modal"
-                  data-bs-target="#confirmModal"
-                  onClick={handleFinish}
-                >
-                  <i className="bi bi-stop-fill"></i>
-                  <span>finalizar</span>
-                </button>
-              </div>
-            ) : (
-              <button
-                className="btn bg-light btn-outline-primary"
-                onClick={handleBackTraining}
-              >
-                treino
-              </button>
-            )}
-          </>
-        ) : (
-          <div className="d-flex bg-light m-0 p-0 rounded">
-            <button
-              className="btn btn-outline-success"
-              data-bs-toggle="modal"
-              data-bs-target="#confirmModal"
-            >
-              <i className="bi bi-play-fill"></i>
-              <span>iniciar</span>
-            </button>
-          </div>
-        )}
-        {logs.ontraining ? <RestCounter /> : null}
-        <div className="dropup bg-light rounded">
+      <footer className="bg-dark p-1 pb-2 position-fixed bottom-0 w-100">
+        <div className="bg-light rounded d-flex justify-content-between p-1">
           <button
-            type="button"
-            className="btn btn-outline-primary border-2 dropdown-toggle"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            data-bs-auto-close="outside"
+            className="btn btn-primary border-2"
+            onClick={() => navigate('/')}
           >
-            {dailyworkout?.name}
+            <i className="bi bi-caret-left-fill"></i>
           </button>
-          <div
-            style={{ minWidth: 'fit-content' }}
-            className="dropdown-menu p-2 bg-dark"
-          >
-            <div
-              className="btn-group-vertical d-flex flex-column align-items-center"
-              role="group"
-              aria-label="Vertical button group"
+          {logs.ontraining ? (
+            <>
+              {onTrainingPage ? (
+                <div className="d-flex bg-light m-0 p-0 rounded">
+                  <button
+                    className="btn btn-secondary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#confirmModal"
+                    onClick={handleFinish}
+                  >
+                    <i className="bi bi-stop-fill"></i>
+                    <span>finalizar</span>
+                  </button>
+                </div>
+              ) : (
+                <button
+                  className="btn bg-light btn-outline-primary"
+                  onClick={handleBackTraining}
+                >
+                  treino
+                </button>
+              )}
+            </>
+          ) : (
+            <div className="d-flex bg-light m-0 p-0 rounded">
+              <button
+                className="btn btn-success"
+                data-bs-toggle="modal"
+                data-bs-target="#confirmModal"
+              >
+                <i className="bi bi-play-fill"></i>
+                <span>iniciar</span>
+              </button>
+            </div>
+          )}
+          {logs.ontraining ? <RestCounter /> : null}
+          <div className="dropup bg-light rounded">
+            <button
+              type="button"
+              className="btn btn-primary border-2 dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              data-bs-auto-close="outside"
             >
-              <p className="dropdown-header text-light">
+              {dailyworkout?.name}
+            </button>
+            <div
+              style={{ minWidth: 'fit-content' }}
+              className="dropdown-menu px-2 pt-0 bg-dark"
+            >
+              <p className="dropdown-header text-light py-1 mt-1">
                 <b>divisão</b>
               </p>
-              {defaultworkout?.workouts.map((w, i) => {
-                const detach =
-                  dailyworkout == w
-                    ? 'btn-primary'
-                    : 'btn-outline-dark bg-light'
-                return (
-                  <button
-                    key={i}
-                    type="button"
-                    className={`btn ${detach} my-2`}
-                    style={{ width: '3em' }}
-                    onClick={() => dispatch(setDailyWorkout(w))}
-                  >
-                    {w.name}
-                  </button>
-                )
-              })}
+              <div className="bg-light rounded">
+                <div
+                  className="btn-group-vertical d-flex flex-column align-items-center py-2"
+                  role="group"
+                  aria-label="Vertical button group"
+                >
+                  {defaultworkout?.workouts.map((w, i) => {
+                    const detach =
+                      dailyworkout == w ? 'btn-primary' : 'btn-outline-dark'
+                    return (
+                      <button
+                        key={i}
+                        type="button"
+                        className={`btn ${detach} my-2`}
+                        style={{ width: '3em' }}
+                        onClick={() => dispatch(setDailyWorkout(w))}
+                      >
+                        {w.name}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </div>
