@@ -77,7 +77,7 @@ export const UserInfoModal = () => {
                 <div className="d-flex col-6 m-0 p-0">
                   <label
                     htmlFor="userage"
-                    className="form-label my-auto px-3 d-flex flex-column"
+                    className="form-label my-auto px-2 d-flex flex-column"
                   >
                     <span className="text-center">idade</span>
                     <span
@@ -96,7 +96,7 @@ export const UserInfoModal = () => {
                 <div className="d-flex col-6 m-0 p-0">
                   <label
                     htmlFor="userheight"
-                    className="form-label my-auto px-3 d-flex flex-column"
+                    className="form-label my-auto px-2 d-flex flex-column"
                   >
                     <span className="text-center">altura</span>
                     <span
@@ -118,7 +118,7 @@ export const UserInfoModal = () => {
                 <div className="d-flex col-6 m-0 p-0">
                   <label
                     htmlFor="userweight"
-                    className="form-label my-auto px-3 d-flex flex-column"
+                    className="form-label my-auto px-2 d-flex flex-column"
                   >
                     <span className="text-center">peso</span>
                     <span
@@ -135,7 +135,7 @@ export const UserInfoModal = () => {
                   />
                 </div>
                 <div className="d-flex col-6 m-0 p-0">
-                  <span className="my-auto px-3 d-flex">IMC</span>
+                  <span className="my-auto px-2 d-flex">IMC</span>
                   <span className="form-control border-dark d-flex align-items-center justify-content-center">
                     {getImc(Number(weight), Number(height))}
                   </span>
