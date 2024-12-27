@@ -27,6 +27,7 @@ export const WorkoutHandler = () => {
   const dailyworkout = useSelector(
     (state: RootReducer) => state.preferences.dailyworkout
   )
+
   const logs = useSelector((state: RootReducer) => state.logs)
 
   const handleFinish = () => {

@@ -1,37 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RootReducer } from '../../store'
-import {
-  setDailyWorkout,
-  setDefaultWorkout
-} from '../../store/reducers/preferences'
+import { useState } from 'react'
 
 export const SelectWorkout = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const workouts = useSelector(
     (state: RootReducer) => state.workouts.user_workouts
   )
-  const defaultworkout = useSelector(
-    (state: RootReducer) => state.preferences.defaultworkout
-  )
-  const dailyworkout = useSelector(
-    (state: RootReducer) => state.preferences.dailyworkout
-  )
-  const handleSelectWorkout = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedWorkout = workouts.filter(
-      (f) => f.name == event.target.value
-    )[0]
-    dispatch(setDefaultWorkout(selectedWorkout))
-    dispatch(setDailyWorkout(selectedWorkout.workouts[0]))
-  }
-  const handleSelectDaily = (name: string) => {
-    const daily = defaultworkout?.workouts.filter((f) => f.name == name)[0]
-    if (daily) {
-      dispatch(setDailyWorkout(daily))
-    }
-  }
-
+  const [selectedWorkout, setSelectedWorkout] = useState({
+    workoutIndex: 0,
+    dailyIndex: 0
+  })
   return (
     <div
       className="modal fade"
@@ -61,10 +41,14 @@ export const SelectWorkout = () => {
                 name="workouts"
                 id="workouts"
                 className="form-control"
-                value={defaultworkout?.name}
-                onChange={handleSelectWorkout}
+                value={workouts[selectedWorkout.workoutIndex].name}
+                onChange={(e) =>
+                  setSelectedWorkout({
+                    workoutIndex: e.target.selectedIndex,
+                    dailyIndex: selectedWorkout.dailyIndex
+                  })
+                }
               >
-                <option value="">Selecione</option>
                 {workouts.map((w, i) => {
                   return (
                     <option key={i} value={w.name}>
@@ -75,42 +59,51 @@ export const SelectWorkout = () => {
               </select>
             </form>
             <div className="d-flex overflow-x-auto m-2">
-              {defaultworkout
-                ? defaultworkout.workouts.map((dw, i) => {
-                    if (dw.name == dailyworkout?.name) {
-                      return (
-                        <button
-                          onClick={() => handleSelectDaily(dw.name)}
-                          className="btn btn-outline-primary mx-2 my-3 active"
-                          key={i}
-                        >
-                          {dw.name}
-                        </button>
-                      )
-                    } else {
-                      return (
-                        <button
-                          onClick={() => handleSelectDaily(dw.name)}
-                          className="btn btn-outline-primary mx-2 my-3"
-                          key={i}
-                        >
-                          {dw.name}
-                        </button>
-                      )
-                    }
-                  })
-                : null}
+              {workouts[selectedWorkout.workoutIndex].workouts.map((dw, i) => {
+                if (i == selectedWorkout.dailyIndex) {
+                  return (
+                    <button
+                      onClick={() =>
+                        setSelectedWorkout({
+                          workoutIndex: selectedWorkout.workoutIndex,
+                          dailyIndex: i
+                        })
+                      }
+                      className="btn btn-outline-primary mx-2 my-3 active"
+                      key={i}
+                    >
+                      {dw.name}
+                    </button>
+                  )
+                } else {
+                  return (
+                    <button
+                      onClick={() =>
+                        setSelectedWorkout({
+                          workoutIndex: selectedWorkout.workoutIndex,
+                          dailyIndex: i
+                        })
+                      }
+                      className="btn btn-outline-primary mx-2 my-3"
+                      key={i}
+                    >
+                      {dw.name}
+                    </button>
+                  )
+                }
+              })}
             </div>
           </div>
           <div className="modal-footer">
             <button
               type="button"
-              className={`btn ${
-                defaultworkout ? 'btn-outline-success' : 'btn-outline-secondary'
-              }`}
+              className="btn btn-outline-success"
               data-bs-dismiss="modal"
-              onClick={() => navigate('/workout')}
-              disabled={defaultworkout ? false : true}
+              onClick={() =>
+                navigate(
+                  `workout/${selectedWorkout.workoutIndex}/${selectedWorkout.dailyIndex}`
+                )
+              }
             >
               <span>confirmar</span>
               <i className="bi bi-check-lg ms-2"></i>
