@@ -4,21 +4,24 @@ import { RootReducer } from '../../store'
 import { Serie } from '../serie'
 import { setCheckEditSerie } from '../../store/reducers/checkedit'
 import { ExerciseInfo } from '../exercise_info'
+import { useParams } from 'react-router-dom'
 
 export const Exercise = ({ ...props }: ExerciseProps) => {
   const dispatch = useDispatch()
-  const exercises = useSelector(
-    (state: RootReducer) => state.preferences.dailyworkout?.exercises
+  const { workoutIndex, dailyIndex } = useParams()
+  const user_workouts = useSelector(
+    (state: RootReducer) => state.workouts.user_workouts
   )
-  const exercise = exercises ? exercises[props.exerciseNum] : null
+  const exercise =
+    user_workouts[Number(workoutIndex)].workouts[Number(dailyIndex)].exercises[
+      props.exerciseNum
+    ]
+
   const ontraining = useSelector((state: RootReducer) => state.logs.ontraining)
   const logs = useSelector((state: RootReducer) => state.logs)
-  const seriesLog =
-    logs.log.series && exercises
-      ? logs.log.series.filter(
-          (f) => f.exercise == exercises[props.exerciseNum].exercise.name
-        )
-      : null
+  const seriesLog = logs.log.series
+    ? logs.log.series.filter((f) => f.exercise == exercise.exercise.name)
+    : null
   const exerciseChecks = seriesLog ? seriesLog.length : 0
   const extraSeries = seriesLog?.slice(exercise?.series.length)
   const teste =
@@ -28,8 +31,8 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
     if (exercise) {
       dispatch(
         setCheckEditSerie({
-          name: exercise?.exercise.name,
-          num: exercise.series.length
+          exerciseIndex: props.exerciseNum,
+          serieIndex: exercise.series.length
         })
       )
     }
@@ -58,31 +61,25 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
           <div className="col-5 text-center">carga</div>
           <div className="col-2" style={{ width: '2em' }} />
         </div>
-        {exercise ? (
-          exercise.serietype == 'normal' && !ontraining ? (
-            <Serie
-              exerciseName={exercise.exercise.name}
-              serienum={exercise.series.length}
-            />
-          ) : (
-            exercise.series.map((serie, i) => {
-              return (
-                <Serie
-                  key={i}
-                  serienum={i + 1}
-                  exerciseName={exercise.exercise.name}
-                />
-              )
-            })
-          )
-        ) : null}
-        {exercise && extraSeries
+        {exercise.serietype == 'normal' && !ontraining ? (
+          <Serie
+            exerciseNum={props.exerciseNum}
+            serienum={exercise.series.length}
+          />
+        ) : (
+          exercise.series.map((serie, i) => {
+            return (
+              <Serie key={i} serienum={i + 1} exerciseNum={props.exerciseNum} />
+            )
+          })
+        )}
+        {extraSeries
           ? extraSeries.map((extra, i) => {
               return (
                 <Serie
                   key={i}
                   serienum={exercise.series.length + i + 1}
-                  exerciseName={exercise.exercise.name}
+                  exerciseNum={props.exerciseNum}
                 />
               )
             })

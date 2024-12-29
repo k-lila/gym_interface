@@ -195,13 +195,13 @@ const daily_B: DailyWorkout = {
           repetitions: [7]
         },
         {
-          repetitions: [7]
+          repetitions: [5]
         },
         {
-          repetitions: [7]
+          repetitions: [5]
         },
         {
-          repetitions: [7]
+          repetitions: [3]
         }
       ],
       rest: 120,

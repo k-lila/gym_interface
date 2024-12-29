@@ -1,19 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { setCheckEditSerie } from '../../store/reducers/checkedit'
+import { useParams } from 'react-router-dom'
 
 export const Serie = ({ ...props }: SerieProps) => {
   const dispatch = useDispatch()
-
-  const exercises = useSelector(
-    (state: RootReducer) => state.preferences.dailyworkout?.exercises
+  const { workoutIndex, dailyIndex } = useParams()
+  const user_workouts = useSelector(
+    (state: RootReducer) => state.workouts.user_workouts
   )
   const ontraining = useSelector((state: RootReducer) => state.logs.ontraining)
   const seriesLog = useSelector((state: RootReducer) => state.logs.log.series)
 
-  const exercise = exercises
-    ? exercises.find((f) => f.exercise.name == props.exerciseName)
-    : null
+  const exercise =
+    user_workouts[Number(workoutIndex)].workouts[Number(dailyIndex)].exercises[
+      props.exerciseNum
+    ]
+
   const exerciseLogs = seriesLog?.filter(
     (f) => f.exercise == exercise?.exercise.name
   )
@@ -32,14 +35,12 @@ export const Serie = ({ ...props }: SerieProps) => {
     : `${serie && serie.weight ? serie.weight : ''}`
 
   const handleCheck = () => {
-    if (exercise) {
-      dispatch(
-        setCheckEditSerie({
-          name: exercise?.exercise.name,
-          num: props.serienum
-        })
-      )
-    }
+    dispatch(
+      setCheckEditSerie({
+        exerciseIndex: props.exerciseNum,
+        serieIndex: props.serienum - 1
+      })
+    )
   }
 
   return (
@@ -60,12 +61,18 @@ export const Serie = ({ ...props }: SerieProps) => {
             : `${reps[0]}-${reps[1]}x`
           : null}
       </span>
-      <span className="col-5 d-flex align-items-center justify-content-center">
-        {exercise && exercise.bodyweight
-          ? '-'
-          : `${weight ? weight : ''}${
-              weight && exercise && exercise.unit ? exercise.unit : '-'
-            }`}
+      <span
+        className={`col-5 d-flex align-items-center justify-content-center ${
+          exercise && exercise.bodyweight ? 'small' : null
+        }`}
+      >
+        {exercise
+          ? exercise.bodyweight
+            ? 'próprio corpo'
+            : `${weight ? weight : ''}${
+                weight && exercise && exercise.unit ? exercise.unit : '-'
+              }`
+          : ''}
       </span>
       {ontraining ? (
         exerciseChecks == props.serienum - 1 ? (

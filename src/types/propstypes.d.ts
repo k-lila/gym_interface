@@ -8,7 +8,7 @@ declare type SeriesProps = {
 
 declare type SerieProps = {
   serienum: number
-  exerciseName: string
+  exerciseNum: number
 }
 
 declare type ExerciseInfoProps = {

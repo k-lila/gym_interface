@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 
@@ -8,16 +10,17 @@ import {
   setSetupLog,
   setStart
 } from '../../store/reducers/workoutlog'
-import { useEffect } from 'react'
 
 export const ModalWorkout = () => {
   const dispatch = useDispatch()
-  const workout = useSelector(
-    (state: RootReducer) => state.preferences.defaultworkout
+  const { workoutIndex, dailyIndex } = useParams()
+  const user_workouts = useSelector(
+    (state: RootReducer) => state.workouts.user_workouts
   )
-  const daily = useSelector(
-    (state: RootReducer) => state.preferences.dailyworkout
-  )
+
+  const selectedworkout = user_workouts[Number(workoutIndex)]
+  const dailyworkout = selectedworkout.workouts[Number(dailyIndex)]
+
   const log = useSelector((state: RootReducer) => state.logs)
   const onTraining = useSelector((state: RootReducer) => state.logs.ontraining)
   let totalSeries = 0
@@ -26,11 +29,9 @@ export const ModalWorkout = () => {
   })
   const handleStart = () => {
     const now = new Date().toUTCString()
-    if (daily && workout) {
-      dispatch(setSetupLog({ name: workout.name, daily: daily }))
-      dispatch(setStart(now))
-      // dispatch(toggleRestCounter(true))
-    }
+    dispatch(setSetupLog({ name: selectedworkout.name, daily: dailyworkout }))
+    dispatch(setStart(now))
+    //   // dispatch(toggleRestCounter(true))
   }
   const handleEnd = () => {
     const now = new Date().toUTCString()
@@ -56,6 +57,7 @@ export const ModalWorkout = () => {
   useEffect(() => {
     const end = log.log.end ? true : false
     if (end) {
+      console.log(log.log)
       dispatch(addHistory(log.log))
       dispatch(eraser())
     }
@@ -105,10 +107,10 @@ export const ModalWorkout = () => {
                 </div>
                 <div className="row border border-dark rounded">
                   <p className="col-6 d-flex my-auto justify-content-center p-2 border-end border-secondary">
-                    {workout?.name}
+                    {selectedworkout.name}
                   </p>
                   <p className="col-6 d-flex my-auto justify-content-center p-2 border-start border-secondary">
-                    {daily?.name}
+                    {dailyworkout.name}
                   </p>
                 </div>
               </>

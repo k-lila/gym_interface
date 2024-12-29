@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 type CheckEditState = {
   onchecking?: {
-    name: string
-    num: number
+    exerciseIndex: number
+    serieIndex: number
   }
 }
 
@@ -17,7 +17,7 @@ const checkeditSlice = createSlice({
   reducers: {
     setCheckEditSerie: (
       state,
-      action: PayloadAction<{ name: string; num: number }>
+      action: PayloadAction<{ exerciseIndex: number; serieIndex: number }>
     ) => {
       state.onchecking = action.payload
     }
