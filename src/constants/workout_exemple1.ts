@@ -5,6 +5,31 @@ const daily_A: DailyWorkout = {
   obs: 'exemplo',
   exercises: [
     {
+      exercise: getExercise('agachamento'),
+      rest: 60,
+      serietype: 'normal',
+      unit: 'kg',
+      series: [
+        { repetitions: [12, 14] },
+        { repetitions: [12, 14] },
+        { repetitions: [12, 14] },
+        { repetitions: [12, 14] }
+      ]
+    },
+    {
+      exercise: getExercise('levantamento terra'),
+      rest: 120,
+      serietype: 'custom',
+      unit: 'kg',
+      series: [
+        { repetitions: [7], weight: 10 },
+        { repetitions: [7], weight: 10 },
+        { repetitions: [5], weight: 20 },
+        { repetitions: [5], weight: 20 },
+        { repetitions: [3], weight: 30 }
+      ]
+    },
+    {
       exercise: getExercise('barra fixa'),
       rest: 60,
       serietype: 'normal',
@@ -47,30 +72,6 @@ const daily_A: DailyWorkout = {
         {
           repetitions: [20]
         }
-      ]
-    },
-    {
-      exercise: getExercise('agachamento'),
-      rest: 60,
-      serietype: 'normal',
-      unit: 'kg',
-      series: [
-        { repetitions: [12, 14] },
-        { repetitions: [12, 14] },
-        { repetitions: [12, 14] }
-      ]
-    },
-    {
-      exercise: getExercise('levantamento terra'),
-      rest: 120,
-      serietype: 'custom',
-      unit: 'kg',
-      series: [
-        { repetitions: [7], weight: 0 },
-        { repetitions: [7], weight: 0 },
-        { repetitions: [7], weight: 0 },
-        { repetitions: [7], weight: 0 },
-        { repetitions: [7], weight: 0 }
       ]
     }
   ]

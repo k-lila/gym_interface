@@ -3,50 +3,49 @@ import { RootReducer } from '../../store'
 import { useEffect, useState } from 'react'
 import { editWorkoutExercise } from '../../utils/editworkout'
 import { editWorkout } from '../../store/reducers/workouts'
-import {
-  setDailyWorkout,
-  setDefaultWorkout
-} from '../../store/reducers/preferences'
+
+import { useParams } from 'react-router-dom'
 
 export const ModalEdit = () => {
   const unitWeight = 1
   const dispatch = useDispatch()
-  const workout = useSelector(
-    (state: RootReducer) => state.preferences.defaultworkout
+  const { workoutIndex, dailyIndex } = useParams()
+
+  const user_workouts = useSelector(
+    (state: RootReducer) => state.workouts.user_workouts
   )
-  const daily = useSelector(
-    (state: RootReducer) => state.preferences.dailyworkout
-  )
+  const workout = user_workouts[Number(workoutIndex)]
+  const daily = workout.workouts[Number(dailyIndex)]
   const onEdit = useSelector((state: RootReducer) => state.checkedit.onchecking)
-  const exercise = daily?.exercises.find(
-    (f) => f.exercise.name === onEdit?.name
-  )
+  const exercise = onEdit ? daily.exercises[onEdit.exerciseIndex] : undefined
+
   const [currentWeight, setCurrentWeight] = useState(
-    onEdit ? exercise?.series?.[onEdit?.num - 1]?.weight || 0 : 0
+    onEdit ? exercise?.series?.[onEdit?.serieIndex]?.weight || 0 : 0
   )
+
   const [minRep, setMinRep] = useState(
-    onEdit ? exercise?.series?.[onEdit?.num - 1]?.repetitions[0] || 1 : 1
+    onEdit ? exercise?.series?.[onEdit?.serieIndex]?.repetitions[0] || 1 : 1
   )
   const [maxRep, setMaxRep] = useState(
     onEdit
-      ? exercise?.series?.[onEdit?.num - 1]?.repetitions.length == 1
-        ? exercise?.series?.[onEdit?.num - 1]?.repetitions[0]
-        : exercise?.series?.[onEdit?.num - 1]?.repetitions[1] || 1
+      ? exercise?.series?.[onEdit?.serieIndex]?.repetitions.length == 1
+        ? exercise?.series?.[onEdit?.serieIndex]?.repetitions[0]
+        : exercise?.series?.[onEdit?.serieIndex]?.repetitions[1] || 1
       : 1
   )
 
   useEffect(() => {
     setCurrentWeight(
-      onEdit ? exercise?.series?.[onEdit?.num - 1]?.weight || 0 : 0
+      onEdit ? exercise?.series?.[onEdit?.serieIndex]?.weight || 0 : 0
     )
     setMinRep(
-      onEdit ? exercise?.series?.[onEdit?.num - 1]?.repetitions[0] || 1 : 1
+      onEdit ? exercise?.series?.[onEdit?.serieIndex]?.repetitions[0] || 1 : 1
     )
     setMaxRep(
       onEdit
-        ? exercise?.series?.[onEdit?.num - 1]?.repetitions.length == 1
-          ? exercise?.series?.[onEdit?.num - 1]?.repetitions[0]
-          : exercise?.series?.[onEdit?.num - 1]?.repetitions[1] || 1
+        ? exercise?.series?.[onEdit?.serieIndex]?.repetitions.length == 1
+          ? exercise?.series?.[onEdit?.serieIndex]?.repetitions[0]
+          : exercise?.series?.[onEdit?.serieIndex]?.repetitions[1] || 1
         : 1
     )
   }, [exercise, onEdit])
@@ -64,7 +63,7 @@ export const ModalEdit = () => {
     } else {
       newSerieArray = []
       exercise?.series.forEach((serie, i) => {
-        if (onEdit && i === onEdit.num - 1) {
+        if (onEdit && i === onEdit.serieIndex) {
           newSerieArray.push(newSerie)
         } else if (serie) {
           newSerieArray.push(serie)
@@ -84,8 +83,6 @@ export const ModalEdit = () => {
         })
       }
       dispatch(editWorkout(newWorkout))
-      dispatch(setDefaultWorkout(newWorkout))
-      dispatch(setDailyWorkout(newDaily))
     }
   }
 
@@ -102,7 +99,9 @@ export const ModalEdit = () => {
             <h5 className="modal-title" id="modalEditLabel">
               {`${
                 exercise?.serietype == 'custom'
-                  ? `${onEdit?.num}/${exercise.series.length} - `
+                  ? `${onEdit ? onEdit.serieIndex + 1 : '-'}/${
+                      exercise.series.length
+                    } - `
                   : ''
               }${exercise?.exercise.name}`}
             </h5>

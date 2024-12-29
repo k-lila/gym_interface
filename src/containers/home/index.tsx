@@ -1,10 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RootReducer } from '../../store'
-import {
-  setDailyWorkout,
-  setDefaultWorkout
-} from '../../store/reducers/preferences'
 import { HomeStyled } from './styles'
 import { SelectWorkout } from '../../components/modal_selectworkout'
 import exercise from '../../assets/exercise.png'
@@ -13,24 +9,21 @@ import { UserInfoModal } from '../../components/modal_userinfo'
 import { ConfigModal } from '../../components/modal_config'
 
 export const HomeHandler = () => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
   const logs = useSelector((state: RootReducer) => state.logs)
   const userworkouts = useSelector(
     (state: RootReducer) => state.workouts.user_workouts
   )
-
-  const toWorkout = () => {
-    const workout = userworkouts.find((f) => f.name == logs.log.workoutname)
-    const daily = workout?.workouts.find(
+  const handleBackTraining = () => {
+    const workout = userworkouts.findIndex(
+      (f) => f.name == logs.log.workoutname
+    )
+    const daily = userworkouts[workout].workouts.findIndex(
       (f) => f.name == logs.log.dailyworkout?.name
     )
-    if (workout && daily) {
-      dispatch(setDefaultWorkout(workout))
-      dispatch(setDailyWorkout(daily))
-      navigate('/workout')
-    }
+    navigate(`/workout/${workout}/${daily}`)
   }
+
   return (
     <HomeStyled className="bg-dark">
       <div className="bg-light rounded px-1 py-2 d-block m-auto">
@@ -73,7 +66,7 @@ export const HomeHandler = () => {
           {logs.ontraining ? (
             <div className="row d-flex px-3 my-2">
               <button
-                onClick={toWorkout}
+                onClick={handleBackTraining}
                 className={`btn ${
                   logs.ontraining ? 'btn-success' : 'btn-dark text-dark'
                 }`}

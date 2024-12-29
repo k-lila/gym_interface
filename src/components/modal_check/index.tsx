@@ -2,19 +2,25 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { useEffect, useState } from 'react'
 import { addSerie } from '../../store/reducers/workoutlog'
+import { useParams } from 'react-router-dom'
 
 export const ModalCheck = () => {
   const dispatch = useDispatch()
+
+  const { workoutIndex, dailyIndex } = useParams()
+  const user_workouts = useSelector(
+    (state: RootReducer) => state.workouts.user_workouts
+  )
   const serieCheck = useSelector(
     (state: RootReducer) => state.checkedit.onchecking
   )
-  const exercise = useSelector(
-    (state: RootReducer) =>
-      state.preferences.dailyworkout?.exercises.filter(
-        (f) => f.exercise.name == serieCheck?.name
-      )[0]
-  )
-  const serie = exercise?.series[serieCheck ? serieCheck.num - 1 : 0]
+  const exercise = serieCheck
+    ? user_workouts[Number(workoutIndex)].workouts[Number(dailyIndex)]
+        .exercises[serieCheck?.exerciseIndex]
+    : undefined
+  const serie =
+    serieCheck && exercise ? exercise.series[serieCheck.serieIndex] : undefined
+
   const [currentReps, setCurrentReps] = useState(
     serie ? serie.repetitions[0] : 0
   )
@@ -27,6 +33,8 @@ export const ModalCheck = () => {
       setCurrentReps(serie.repetitions[0])
       if (serie.weight) {
         setCurrentWeight(serie.weight)
+      } else {
+        setCurrentWeight(0)
       }
     }
   }, [serie])
@@ -53,7 +61,9 @@ export const ModalCheck = () => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="modalCheckLabel">
-              {serieCheck?.name}
+              {`${serieCheck ? serieCheck.serieIndex + 1 : null} - ${
+                exercise?.exercise.name
+              }`}
             </h5>
             <button
               type="button"

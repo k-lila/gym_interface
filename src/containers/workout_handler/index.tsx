@@ -1,11 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { RootReducer } from '../../store'
 import { Exercise } from '../../components/exercise'
-import {
-  setDailyWorkout,
-  setDefaultWorkout
-} from '../../store/reducers/preferences'
 import { ModalWorkout } from '../../components/modal_startend'
 import { ModalCheck } from '../../components/modal_check'
 import { ProgressBar } from '../../components/progress_bar'
@@ -16,18 +12,14 @@ import { RestCounter } from '../../components/rest_counter'
 export const WorkoutHandler = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
+  const { workoutIndex, dailyIndex } = useParams()
   const userworkouts = useSelector(
     (state: RootReducer) => state.workouts.user_workouts
   )
-
-  const defaultworkout = useSelector(
-    (state: RootReducer) => state.preferences.defaultworkout
-  )
-  const dailyworkout = useSelector(
-    (state: RootReducer) => state.preferences.dailyworkout
-  )
   const logs = useSelector((state: RootReducer) => state.logs)
+
+  const defaultworkout = userworkouts[Number(workoutIndex)]
+  const dailyworkout = defaultworkout.workouts[Number(dailyIndex)]
 
   const handleFinish = () => {
     const now = new Date().toUTCString()
@@ -35,14 +27,13 @@ export const WorkoutHandler = () => {
   }
 
   const handleBackTraining = () => {
-    const workout = userworkouts.find((f) => f.name == logs.log.workoutname)
-    const daily = workout?.workouts.find(
+    const workout = userworkouts.findIndex(
+      (f) => f.name == logs.log.workoutname
+    )
+    const daily = userworkouts[workout].workouts.findIndex(
       (f) => f.name == logs.log.dailyworkout?.name
     )
-    if (workout && daily) {
-      dispatch(setDefaultWorkout(workout))
-      dispatch(setDailyWorkout(daily))
-    }
+    navigate(`/workout/${workout}/${daily}`)
   }
 
   const onTrainingPage =
@@ -56,7 +47,7 @@ export const WorkoutHandler = () => {
     <main>
       {logs.ontraining ? <ProgressBar /> : null}
       <div className="p-2 mb-5">
-        {dailyworkout?.exercises.map((w, i) => {
+        {dailyworkout.exercises.map((w, i) => {
           return (
             <Exercise
               key={`${w.exercise.name}${dailyworkout.name}`}
@@ -141,7 +132,9 @@ export const WorkoutHandler = () => {
                         type="button"
                         className={`btn ${detach} my-2`}
                         style={{ width: '3em' }}
-                        onClick={() => dispatch(setDailyWorkout(w))}
+                        onClick={() =>
+                          navigate(`/workout/${workoutIndex}/${i}`)
+                        }
                       >
                         {w.name}
                       </button>
