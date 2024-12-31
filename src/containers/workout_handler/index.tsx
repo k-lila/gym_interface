@@ -44,111 +44,130 @@ export const WorkoutHandler = () => {
       : false
 
   return (
-    <main>
-      {logs.ontraining ? <ProgressBar /> : null}
-      <div className="p-2 mb-5">
-        {dailyworkout.exercises.map((w, i) => {
-          return (
-            <Exercise
-              key={`${w.exercise.name}${dailyworkout.name}`}
-              exerciseNum={i}
-            />
-          )
-        })}
-      </div>
-      <footer className="bg-dark p-1 pb-2 position-fixed bottom-0 w-100">
-        <div className="bg-light rounded d-flex justify-content-between p-1">
-          <button
-            className="btn btn-primary border-2"
-            onClick={() => navigate('/')}
-          >
-            <i className="bi bi-caret-left-fill"></i>
-          </button>
-          {logs.ontraining ? (
-            <>
-              {onTrainingPage ? (
-                <div className="d-flex bg-light m-0 p-0 rounded">
-                  <button
-                    className="btn btn-secondary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#confirmModal"
-                    onClick={handleFinish}
-                  >
-                    <i className="bi bi-stop-fill"></i>
-                    <span>finalizar</span>
-                  </button>
-                </div>
-              ) : (
-                <button
-                  className="btn bg-light btn-outline-primary"
-                  onClick={handleBackTraining}
-                >
-                  treino
-                </button>
-              )}
-            </>
-          ) : (
-            <div className="d-flex bg-light m-0 p-0 rounded">
-              <button
-                className="btn btn-success"
-                data-bs-toggle="modal"
-                data-bs-target="#confirmModal"
-              >
-                <i className="bi bi-play-fill"></i>
-                <span>iniciar</span>
-              </button>
-            </div>
-          )}
-          {logs.ontraining ? <RestCounter /> : null}
-          <div className="dropup bg-light rounded">
+    <main style={{ height: '100svh' }} className="d-flex bg-dark">
+      <div
+        style={{
+          width: '100%',
+          height: '100svh',
+          maxHeight: '1000px',
+          maxWidth: '450px'
+        }}
+        className="d-flex flex-column justify-content-between bg-dark m-auto pt-2 overflow-hidden"
+      >
+        {logs.ontraining ? <ProgressBar /> : null}
+        <div
+          style={{
+            maxWidth: '500px',
+            overflow: 'auto',
+            height: '100%'
+          }}
+          className="p-2 mx-2 mb-2 bg-light rounded"
+        >
+          {dailyworkout.exercises.map((w, i) => {
+            return (
+              <Exercise
+                key={`${w.exercise.name}${dailyworkout.name}`}
+                exerciseNum={i}
+              />
+            )
+          })}
+        </div>
+        <footer className="bg-dark px-2 pb-2 w-100">
+          <div className="bg-light rounded d-flex justify-content-between p-1">
             <button
-              type="button"
-              className="btn btn-primary border-2 dropdown-toggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              data-bs-auto-close="outside"
+              className="btn btn-primary border-2"
+              onClick={() => navigate('/')}
             >
-              {dailyworkout?.name}
+              <i className="bi bi-caret-left-fill"></i>
             </button>
-            <div
-              style={{ minWidth: 'fit-content' }}
-              className="dropdown-menu px-2 pt-0 bg-dark"
-            >
-              <p className="dropdown-header text-light py-1 mt-1">
-                <b>divisão</b>
-              </p>
-              <div className="bg-light rounded">
-                <div
-                  className="btn-group-vertical d-flex flex-column align-items-center py-2"
-                  role="group"
-                  aria-label="Vertical button group"
+            {logs.ontraining ? (
+              <>
+                {onTrainingPage ? (
+                  <div className="d-flex bg-light m-0 p-0 rounded">
+                    <button
+                      className="btn btn-secondary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#confirmModal"
+                      onClick={handleFinish}
+                    >
+                      <i className="bi bi-stop-fill"></i>
+                      <span>finalizar</span>
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    className="btn bg-light btn-outline-primary"
+                    onClick={handleBackTraining}
+                  >
+                    treino
+                  </button>
+                )}
+              </>
+            ) : (
+              <div className="d-flex bg-light m-0 p-0 rounded">
+                <button
+                  className="btn btn-success"
+                  data-bs-toggle="modal"
+                  data-bs-target="#confirmModal"
                 >
-                  {defaultworkout?.workouts.map((w, i) => {
-                    const detach =
-                      dailyworkout == w ? 'btn-primary' : 'btn-outline-primary'
-                    return (
-                      <button
-                        key={i}
-                        type="button"
-                        className={`btn ${detach} my-2`}
-                        style={{ width: '3em' }}
-                        onClick={() =>
-                          navigate(`/workout/${workoutIndex}/${i}`)
-                        }
-                      >
-                        {w.name}
-                      </button>
-                    )
-                  })}
+                  <i className="bi bi-play-fill"></i>
+                  <span>iniciar</span>
+                </button>
+              </div>
+            )}
+            {logs.ontraining ? <RestCounter /> : null}
+            <div className="dropup bg-light rounded">
+              <button
+                type="button"
+                className="btn btn-primary border-2 dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                data-bs-auto-close="outside"
+              >
+                {dailyworkout?.name}
+              </button>
+              <div
+                style={{ minWidth: 'fit-content' }}
+                className="dropdown-menu px-2 pt-0 bg-dark"
+              >
+                <p className="dropdown-header text-light py-1 mt-1">
+                  <b>divisão</b>
+                </p>
+                <div className="bg-light rounded">
+                  <div
+                    className="btn-group-vertical d-flex flex-column align-items-center py-2"
+                    role="group"
+                    aria-label="Vertical button group"
+                  >
+                    {defaultworkout?.workouts.map((w, i) => {
+                      const detach =
+                        dailyworkout == w
+                          ? 'btn-primary'
+                          : 'btn-outline-primary'
+                      return (
+                        <button
+                          key={i}
+                          type="button"
+                          className={`btn ${detach} my-2`}
+                          style={{ width: '3em' }}
+                          onClick={() =>
+                            navigate(`/workout/${workoutIndex}/${i}`)
+                          }
+                        >
+                          {w.name}
+                        </button>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </footer>
-      {dailyworkout ? <ModalWorkout /> : null}
-      <ModalCheck />
-      <ModalEdit />
+        </footer>
+        {dailyworkout ? <ModalWorkout /> : null}
+        <ModalCheck />
+        <ModalEdit />
+      </div>
     </main>
   )
 }
