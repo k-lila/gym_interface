@@ -49,19 +49,18 @@ export const WorkoutHandler = () => {
         style={{
           width: '100%',
           height: '100svh',
-          maxHeight: '1000px',
+          maxHeight: '900px',
           maxWidth: '450px'
         }}
         className="d-flex flex-column justify-content-between bg-dark m-auto pt-2 overflow-hidden"
       >
-        {logs.ontraining ? <ProgressBar /> : null}
         <div
           style={{
             maxWidth: '500px',
             overflow: 'auto',
             height: '100%'
           }}
-          className="p-2 mx-2 mb-2 bg-light rounded"
+          className="p-2 mx-2 mb-1 bg-light rounded"
         >
           {dailyworkout.exercises.map((w, i) => {
             return (
@@ -72,7 +71,9 @@ export const WorkoutHandler = () => {
             )
           })}
         </div>
-        <footer className="bg-dark px-2 pb-2 w-100">
+        {logs.ontraining ? <ProgressBar /> : null}
+
+        <footer className="bg-dark px-1 pb-2 mt-1 w-100">
           <div className="bg-light rounded d-flex justify-content-between p-1">
             <button
               className="btn btn-primary border-2"

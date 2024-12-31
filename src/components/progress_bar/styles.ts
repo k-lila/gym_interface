@@ -2,11 +2,7 @@ import styled from 'styled-components'
 
 export const Bar = styled.div<{ $num: number }>`
   background-color: green;
-  position: fixed;
-  bottom: 12vmin;
-  left: 0;
-  width: 100%;
-  height: 30px;
+  height: 1svh;
   opacity: ${(props) =>
     props.$num === 0
       ? 0.5
