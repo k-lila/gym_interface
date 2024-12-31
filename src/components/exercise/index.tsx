@@ -24,9 +24,7 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
     : null
   const exerciseChecks = seriesLog ? seriesLog.length : 0
   const extraSeries = seriesLog?.slice(exercise?.series.length)
-  const teste =
-    exercise && exerciseChecks >= exercise.series.length ? 'bg-checked' : ''
-
+  const opacity = (1 / exercise.series.length) * exerciseChecks
   const handleCheck = () => {
     if (exercise) {
       dispatch(
@@ -39,9 +37,9 @@ export const Exercise = ({ ...props }: ExerciseProps) => {
   }
 
   return (
-    <ExerciseStyled>
+    <ExerciseStyled $num={opacity} className="my-2 mb-3">
       <button
-        className={`btn border-dark w-100 d-flex justify-content-start align-items-center border-2 ${teste}`}
+        className={`btn border-dark w-100 d-flex justify-content-start align-items-center border-2 bgcolor`}
         type="button"
         data-bs-toggle="collapse"
         data-bs-target={`#exerciseCollapse${props.exerciseNum}`}
