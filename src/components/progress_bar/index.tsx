@@ -10,5 +10,5 @@ export const ProgressBar = () => {
     serieNum = serieNum + ex.series.length
   })
   const percentage = (100 / serieNum) * (logs ? logs.length : 0)
-  return <Bar $num={percentage} />
+  return <Bar className="rounded mx-1" $num={percentage} />
 }

@@ -8,6 +8,7 @@ import { ProgressBar } from '../../components/progress_bar'
 import { setFinish } from '../../store/reducers/workoutlog'
 import { ModalEdit } from '../../components/modal_edit'
 import { RestCounter } from '../../components/rest_counter'
+import { WorkoutHandlerStyled } from './styles'
 
 export const WorkoutHandler = () => {
   const navigate = useNavigate()
@@ -17,7 +18,6 @@ export const WorkoutHandler = () => {
     (state: RootReducer) => state.workouts.user_workouts
   )
   const logs = useSelector((state: RootReducer) => state.logs)
-
   const defaultworkout = userworkouts[Number(workoutIndex)]
   const dailyworkout = defaultworkout.workouts[Number(dailyIndex)]
 
@@ -25,7 +25,6 @@ export const WorkoutHandler = () => {
     const now = new Date().toUTCString()
     dispatch(setFinish(now))
   }
-
   const handleBackTraining = () => {
     const workout = userworkouts.findIndex(
       (f) => f.name == logs.log.workoutname
@@ -38,31 +37,15 @@ export const WorkoutHandler = () => {
 
   const onTrainingPage =
     logs.ontraining &&
-    dailyworkout?.name == logs.log.dailyworkout?.name &&
-    defaultworkout?.name == logs.log.workoutname
+    dailyworkout.name == logs.log.dailyworkout?.name &&
+    defaultworkout.name == logs.log.workoutname
       ? true
       : false
 
   return (
-    <main style={{ height: '100svh' }} className="d-flex bg-dark">
-      <div
-        style={{
-          width: '100%',
-          height: '100svh',
-          maxHeight: '1000px',
-          maxWidth: '450px'
-        }}
-        className="d-flex flex-column justify-content-between bg-dark m-auto pt-2 overflow-hidden"
-      >
-        {logs.ontraining ? <ProgressBar /> : null}
-        <div
-          style={{
-            maxWidth: '500px',
-            overflow: 'auto',
-            height: '100%'
-          }}
-          className="p-2 mx-2 mb-2 bg-light rounded"
-        >
+    <WorkoutHandlerStyled className="d-flex bg-dark">
+      <div className="d-flex flex-column justify-content-between bg-dark m-auto pt-2 overflow-hidden workoutcontainer">
+        <div className="p-2 mx-2 mb-1 bg-light rounded exercises">
           {dailyworkout.exercises.map((w, i) => {
             return (
               <Exercise
@@ -72,7 +55,8 @@ export const WorkoutHandler = () => {
             )
           })}
         </div>
-        <footer className="bg-dark px-2 pb-2 w-100">
+        {logs.ontraining ? <ProgressBar /> : null}
+        <footer className="bg-dark px-1 pb-2 mt-1 w-100">
           <div className="bg-light rounded d-flex justify-content-between p-1">
             <button
               className="btn btn-primary border-2"
@@ -139,7 +123,7 @@ export const WorkoutHandler = () => {
                     role="group"
                     aria-label="Vertical button group"
                   >
-                    {defaultworkout?.workouts.map((w, i) => {
+                    {defaultworkout.workouts.map((w, i) => {
                       const detach =
                         dailyworkout == w
                           ? 'btn-primary'
@@ -164,10 +148,10 @@ export const WorkoutHandler = () => {
             </div>
           </div>
         </footer>
-        {dailyworkout ? <ModalWorkout /> : null}
+        <ModalWorkout />
         <ModalCheck />
         <ModalEdit />
       </div>
-    </main>
+    </WorkoutHandlerStyled>
   )
 }

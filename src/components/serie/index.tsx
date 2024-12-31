@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { setCheckEditSerie } from '../../store/reducers/checkedit'
 import { useParams } from 'react-router-dom'
+import { SerieStyled } from './styles'
 
 export const Serie = ({ ...props }: SerieProps) => {
   const dispatch = useDispatch()
@@ -22,6 +23,8 @@ export const Serie = ({ ...props }: SerieProps) => {
   )
   const exerciseChecks = exerciseLogs ? exerciseLogs.length : 0
   const serie = exercise ? exercise.series[props.serienum - 1] : null
+  const togglebg =
+    exerciseLogs && exerciseLogs.length > props.serienum - 1 ? true : false
 
   const reps = ontraining
     ? exerciseChecks > props.serienum - 1 && exerciseLogs
@@ -44,12 +47,10 @@ export const Serie = ({ ...props }: SerieProps) => {
   }
 
   return (
-    <div
-      className={`row border-bottom border-secondary d-flex justify-content-between ${
-        exerciseLogs && exerciseLogs.length > props.serienum - 1
-          ? 'bg-checked'
-          : ''
-      }`}
+    <SerieStyled
+      $num={(1 / exercise.series.length) * props.serienum}
+      $togglebg={togglebg}
+      className="row border-bottom border-secondary d-flex justify-content-between"
     >
       <span className="col-1 d-flex align-items-center justify-content-center border-end">
         {props.serienum}
@@ -120,6 +121,6 @@ export const Serie = ({ ...props }: SerieProps) => {
           <i className="bi bi-pencil"></i>
         </button>
       )}
-    </div>
+    </SerieStyled>
   )
 }
