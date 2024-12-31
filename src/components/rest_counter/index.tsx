@@ -60,14 +60,20 @@ export const RestCounter = () => {
       onClick={() => setShow(!show)}
     >
       {show ? (
-        <span className="text-light">
-          {`${minutesRest > 9 ? '' : '0'}${minutesRest}:${
-            secondsRest > 9 ? '' : '0'
-          }${secondsRest}`}
-        </span>
+        <div className="text-light d-flex flex-column align-items-center">
+          <i
+            style={{ fontSize: '0.8em' }}
+            className="bi bi-battery-charging"
+          ></i>
+          <span style={{ fontSize: '0.75em' }} className="text-light">
+            {`${minutesRest > 9 ? '' : '0'}${minutesRest}:${
+              secondsRest > 9 ? '' : '0'
+            }${secondsRest}`}
+          </span>
+        </div>
       ) : (
         <div className="text-light d-flex flex-column align-items-center">
-          <i style={{ fontSize: '0.75em' }} className="bi bi-stopwatch"></i>
+          <i style={{ fontSize: '0.8em' }} className="bi bi-stopwatch"></i>
           <span style={{ fontSize: '0.75em' }}>{`${
             hour > 9 ? '' : '0'
           }${hour}:${minutes > 9 ? '' : '0'}${minutes}:${
