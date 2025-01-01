@@ -61,10 +61,7 @@ export const RestCounter = () => {
     >
       {show ? (
         <div className="text-light d-flex flex-column align-items-center">
-          <i
-            style={{ fontSize: '0.8em' }}
-            className="bi bi-battery-charging"
-          ></i>
+          <span style={{ fontSize: '0.7em' }}>descanso</span>
           <span style={{ fontSize: '0.75em' }} className="text-light">
             {`${minutesRest > 9 ? '' : '0'}${minutesRest}:${
               secondsRest > 9 ? '' : '0'

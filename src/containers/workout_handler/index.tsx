@@ -108,40 +108,68 @@ export const WorkoutHandler = () => {
                 aria-expanded="false"
                 data-bs-auto-close="outside"
               >
-                {dailyworkout?.name}
+                {dailyworkout.name}
               </button>
               <div
-                style={{ minWidth: 'fit-content' }}
-                className="dropdown-menu px-2 pt-0 bg-dark"
+                style={{ minWidth: 'max-content' }}
+                className="dropdown-menu px-2 bg-dark"
               >
-                <p className="dropdown-header text-light py-1 mt-1">
-                  <b>divisão</b>
-                </p>
-                <div className="bg-light rounded">
-                  <div
-                    className="btn-group-vertical d-flex flex-column align-items-center py-2"
-                    role="group"
-                    aria-label="Vertical button group"
+                <div style={{ width: 'fit-content' }}>
+                  <label
+                    htmlFor="workouts"
+                    className="text-light py-1 mt-1 w-100 text-center"
                   >
-                    {defaultworkout.workouts.map((w, i) => {
-                      const detach =
-                        dailyworkout == w
-                          ? 'btn-primary'
-                          : 'btn-outline-primary'
+                    <b>treino</b>
+                  </label>
+                  <select
+                    name="workouts"
+                    id="workouts"
+                    className="form-control"
+                    onChange={(e) => {
+                      navigate(`/workout/${e.target.value}/0`)
+                    }}
+                  >
+                    {userworkouts.map((m, i) => {
                       return (
-                        <button
-                          key={i}
-                          type="button"
-                          className={`btn ${detach} my-2`}
-                          style={{ width: '3em' }}
-                          onClick={() =>
-                            navigate(`/workout/${workoutIndex}/${i}`)
-                          }
-                        >
-                          {w.name}
-                        </button>
+                        <option key={i} value={i}>
+                          {m.name}
+                        </option>
                       )
                     })}
+                  </select>
+                  <label
+                    htmlFor="divisions"
+                    className="text-light py-1 mt-3 w-100 text-center"
+                  >
+                    <b>divisão</b>
+                  </label>
+                  <div className="bg-light rounded">
+                    <div
+                      className="btn-group-vertical d-flex flex-column align-items-center py-2"
+                      id="divisions"
+                      role="group"
+                      aria-label="Vertical button group"
+                    >
+                      {defaultworkout.workouts.map((w, i) => {
+                        const detach =
+                          dailyworkout == w
+                            ? 'btn-primary'
+                            : 'btn-outline-primary'
+                        return (
+                          <button
+                            key={i}
+                            type="button"
+                            className={`btn ${detach} my-2`}
+                            style={{ width: '3em' }}
+                            onClick={() =>
+                              navigate(`/workout/${workoutIndex}/${i}`)
+                            }
+                          >
+                            {w.name}
+                          </button>
+                        )
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
