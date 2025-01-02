@@ -56,7 +56,7 @@ export const WorkoutHandler = () => {
           })}
         </div>
         {logs.ontraining ? <ProgressBar /> : null}
-        <footer className="bg-dark px-1 pb-2 mt-1 w-100">
+        <footer className="bg-dark px-1 pb-1 mt-1 w-100">
           <div className="bg-light rounded d-flex justify-content-between p-1">
             <button
               className="btn btn-primary border-2"
@@ -137,16 +137,14 @@ export const WorkoutHandler = () => {
                       )
                     })}
                   </select>
-                  <label
-                    htmlFor="divisions"
-                    className="text-light py-1 mt-3 w-100 text-center"
-                  >
-                    <b>divisão</b>
-                  </label>
+                  <div className="text-light py-1 mt-3 text-center">
+                    <span>
+                      <b>divisão</b>
+                    </span>
+                  </div>
                   <div className="bg-light rounded">
                     <div
                       className="btn-group-vertical d-flex flex-column align-items-center py-2"
-                      id="divisions"
                       role="group"
                       aria-label="Vertical button group"
                     >

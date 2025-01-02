@@ -65,6 +65,7 @@ export const UserInfoModal = () => {
                   Nome
                 </label>
                 <input
+                  autoComplete="off"
                   onChange={(e) => setName(e.target.value)}
                   value={name}
                   id="username"
@@ -86,6 +87,7 @@ export const UserInfoModal = () => {
                     >{`(anos)`}</span>
                   </label>
                   <input
+                    autoComplete="off"
                     value={age}
                     onChange={(e) => setAge(e.target.value)}
                     id="userage"
@@ -105,6 +107,7 @@ export const UserInfoModal = () => {
                     >{`(cm)`}</span>
                   </label>
                   <input
+                    autoComplete="off"
                     value={height}
                     onChange={(e) => setHeight(e.target.value)}
                     id="userheight"
@@ -127,6 +130,7 @@ export const UserInfoModal = () => {
                     >{`(kg)`}</span>
                   </label>
                   <input
+                    autoComplete="off"
                     value={weight}
                     onChange={(e) => setWeight(e.target.value)}
                     id="userweight"
